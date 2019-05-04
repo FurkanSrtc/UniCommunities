@@ -1,0 +1,43 @@
+﻿@model IEnumerable<UniversityCommunities.Models.KulupKayit>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="card testimonial-card">
+
+
+    <div class="container">
+
+        <div class="row">
+
+            @foreach (var item in Model)
+            {
+
+                <div class="col-sm-6 col-md-4 col-lg-3 mt-4 card">
+                    <div class="card card-inverse card-info mx-auto ">
+
+                        <img class="card-img-top " src="~/images/Logos/@item.KulupLogo.Where(x => x.Kulup_No == item.Kulup_Id).Select(x => x.Logo_Adresi).FirstOrDefault()" alt="" style="height:150px; width:150px;" onclick="">
+
+                        <div class="card-block">
+
+                            <h4 class="card-title">@Html.Label(item.Kulup_Adi)</h4>
+                            <div class="card-text">
+                                @Html.Label(item.Kulup_KurulusAmaci)
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            @Html.ActionLink("İncele", "Details", "Societies", new { id = item.Kulup_Id }, new { @class = "btn btn-info btn-sm" })
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+
+
+        </div>
+    </div>
+</div>

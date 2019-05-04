@@ -1,0 +1,115 @@
+﻿@model UniversityCommunities.Models.KulupKayitViewModel
+
+@{
+    ViewBag.Title = "Yonetim Kurulu";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <h1 class="col-md-12">Sekreter Bilgileri</h1>
+        <table class="table col-md-10">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col" style="background-color:#104b8f; color:white">1</th>
+                    <th scope="col" style="background-color:#104b8f; color:white">2</th>
+                    <th scope="col" style="background-color:#104b8f; color:white">3</th>
+                    <th scope="col" style="background-color:#104b8f; color:white">4</th>
+                    <th scope="col" style="background-color:#104b8f; color:white">5</th>
+                    <th scope="col">6</th>
+                    <th scope="col">7</th>
+                    <th scope="col">8</th>
+                    <th scope="col">9</th>
+                </tr>
+            </thead>
+        </table>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.Label("Ad", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Uye.Uye_Adi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Uye.Uye_Adi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Soyad", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Uye.Uye_Soyadi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Uye.Uye_Soyadi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Doğum Tarihi", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Uye.Uye_DogumTarihi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Uye.Uye_DogumTarihi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Fakülte", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+
+                    @Html.DropDownListFor(model => model.Fakulte_No, ViewBag.DepartmentList as SelectList, "Fakülte Seçiniz", new { @class = "" })
+
+                    @*@Html.EditorFor(model => model.uye.Uye_FakulteNo, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.Uye.Uye_FakulteNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Bölüm", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (ViewBag.DepartmentList != null)
+                    {
+                        @Html.DropDownListFor(model => model.Bolum_No, new SelectList(" "), "Bölüm Seçiniz", new { @class = "" })
+                    }
+                    @Html.ValidationMessageFor(model => model.Uye.Uye_BolumNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+
+
+            <div class="form-group">
+                @Html.Label("E-Posta Adresi", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+
+                    @Html.EditorFor(model => model.Uye.Uye_EPosta, new { htmlAttributes = new { @class = "form-control" } })
+
+                    @Html.ValidationMessageFor(model => model.Uye.Uye_EPosta, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Telefon No", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Uye.Uye_Telefon, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Uye.Uye_Telefon, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Okul No", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Uye.Uye_OkulNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Uye.Uye_OkulNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="submit" value="Sonraki Adım" class="btn btn-block btn-success" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+}

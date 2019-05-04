@@ -1,0 +1,159 @@
+﻿@model UniversityCommunities.Models.ViewModels.DetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<h2>Kulüp Bilgileri</h2>
+<table class="table">
+    <tr>
+
+        <th>
+            Kulüp Adı
+        </th>
+        <th>
+            Kuruluş Amacı
+        </th>
+
+        <th>
+            Fakülte Adı
+        </th>
+
+        <th>
+            Danışman Adı
+        </th>
+        <th>
+            Danışman Soyadı
+        </th>
+        <th>Danışman Mail Adresi</th>
+        <th>Danışman Telefon Numarası</th>
+
+    </tr>
+
+
+    <tr>
+        <td>
+            @Html.DisplayFor(m => m.kulupKayit.Kulup_Adi)
+        </td>
+        <td>
+            @Html.DisplayFor(m => m.kulupKayit.Kulup_KurulusAmaci)
+        </td>
+
+        <td>
+            @Html.DisplayFor(m => m.kulupKayit.Fakulteler.Fakulte_Adi)
+        </td>
+
+        <td>
+            @Html.DisplayFor(m => m.kulupKayit.KulupDanisman_Adi)
+        </td>
+        <td>
+            @Html.DisplayFor(m => m.kulupKayit.KulupDanisman_Soyadi)
+        </td>
+        <td>
+            @Html.DisplayFor(m => m.kulupKayit.KulupDanisman_MailAdresi)
+        </td>
+        <td>
+            @Html.DisplayFor(m => m.kulupKayit.KulupDanisman_Telefon)
+        </td>
+    </tr>
+
+
+</table>
+
+<h2>Üye Bilgileri</h2>
+<table class="table">
+    <tr>
+        <th>
+            Okul No
+        </th>
+        <th>
+            Adı
+        </th>
+        <th>
+            Soyadı
+        </th>
+        <th>
+            Doğum Tarihi
+        </th>
+        <th>
+            Fakülte Adı
+        </th>
+        <th>
+            Bölüm Adı
+        </th>
+        <th>
+            E-Posta
+        </th>
+        <th>
+            Telefon
+        </th>
+
+        <th>
+            Ünvan Adı
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model.uyeList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uye_OkulNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uye_Adi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uye_Soyadi)
+            </td>
+            <td>
+                @{
+                    DateTime a = Convert.ToDateTime(item.Uye_DogumTarihi);
+                    string date = a.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+
+                }
+                @Html.DisplayFor(modelItem => date)
+
+
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fakulteler.Fakulte_Adi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bolumler.Bolum_Adi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uye_EPosta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uye_Telefon)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.UyeUnvanlari.Unvan_Adi)
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Uye_Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Uye_Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Uye_Id })
+                </td>*@
+        </tr>
+    }
+
+</table>
+<div class="row">
+    <div class="col-md-6">
+
+        @Html.ActionLink("Onayla", "Add", new { id = Convert.ToInt32(TempData["listId"]) },new { @class="btn btn-success col-md-12"}) <br /><br />
+    </div>
+
+    <div class="col-md-6">
+        @Html.ActionLink("Reddet", "Remove", new { id = Convert.ToInt32(TempData["listId"]) }, new { @class = "btn btn-danger col-md-12" })<br /><br />
+
+    </div>
+
+</div>

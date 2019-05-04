@@ -1,0 +1,136 @@
+﻿@model IEnumerable<UniversityCommunities.Models.KulupEtkinlikleri>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="page-header">
+            <h1 id="">Etkinlikler</h1>
+        </div>
+        <div id="timeline">
+
+
+
+
+            @foreach (var item in Model)
+            {
+
+
+                <div class="row timeline-movement">
+                    <div class="timeline-badge">
+                        <span class="timeline-balloon-date-day">@Html.DisplayFor(x => ((DateTime)(item.Etkinlik_Tarihi)).Day)</span>
+                        @{DateTime date = new DateTime();
+                            date = (DateTime)item.Etkinlik_Tarihi;
+
+                        }
+                        <span class="timeline-balloon-date-month">@date.ToString("ddd")</span>
+                    </div>
+
+                    <div class="col-sm-6  timeline-item">
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <div class="timeline-panel credits">
+                                    <ul class="timeline-panel-ul">
+                                        <li><span class="importo">@Html.DisplayFor(x => item.KulupKayit.Kulup_Adi)</span></li>
+                                        <li><span class="causale">@Html.DisplayFor(x => item.KulupKayit.Kulup_KurulusAmaci)</span> </li>
+                                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> </small></p> </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6  timeline-item">
+                        <div class="row">
+                            <div class="col-sm-offset-1 col-sm-11">
+                                <div class="timeline-panel debits">
+                                    <ul class="timeline-panel-ul">
+                                        <li><span class="importo">@Html.DisplayFor(x => item.Etkinlik_Adi)</span></li>
+                                        <li><span class="causale">@Html.DisplayFor(x => item.Etkinlik_Konusu) </span> </li>
+                                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> @Html.DisplayFor(x => item.Etkinlik_Tarihi)</small></p> </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="page-header">
+            <h1 id="">Duyurular</h1>
+        </div>
+        <div class="list-group">
+
+            @{
+                List<UniversityCommunities.Models.Universite_Duyuru> a = new List<UniversityCommunities.Models.Universite_Duyuru>();
+                a = (ViewBag.Duyurular);
+
+
+
+
+
+                foreach (var item in a)
+                {
+
+                    <a href="http://@item.Duyuru_Url" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">@item.Duyuru</h5>
+
+                            <small class="text-muted">
+
+                                @{DateTime date = new DateTime();
+                                    date = (DateTime)item.Tarih;
+                                    date.ToString("yyyy-MM-dd");
+
+                                    DateTime date2 = DateTime.Now;
+                                    date2.ToString("yyyy-MM-dd");
+                                    TimeSpan time = date2 - date;
+
+                                    if (@Math.Floor(time.TotalDays) == 0)
+                                    {
+                                        @Html.Label("Bugün")
+                                    }
+                                    else
+                                    {
+                                        @Html.Label(@Math.Floor(time.TotalDays) + " Gün Önce")
+                                    }
+                                }
+
+                            </small>
+                        </div>
+
+                        <p class="mb-1">@item.Duyuru_Aciklama</p>
+                    </a>
+                }
+            }
+
+
+            @*<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                    </div>
+                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                    <small class="text-muted">Donec id elit non mi porta.</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                    </div>
+                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                    <small class="text-muted">Donec id elit non mi porta.</small>
+                </a>*@
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,991 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="UniversiteKulupYonetimDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bolumler">
+          <Key>
+            <PropertyRef Name="Bolum_No" />
+          </Key>
+          <Property Name="Bolum_No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fakulte_No" Type="int" />
+          <Property Name="Bolum_Adi" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.EtkinlikTurleri' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EtkinlikTurleri">
+          <Key>
+            <PropertyRef Name="Etkinlik_Turu_Id" />
+          </Key>
+          <Property Name="Etkinlik_Turu_Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Etkinlik_Turu_Adi" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.FaaliyetTurleri' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="FaaliyetTurleri">
+          <Key>
+            <PropertyRef Name="Faaliyet_Turu_Id" />
+          </Key>
+          <Property Name="Faaliyet_Turu_Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Faaliyet_Turu_Adi" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Fakulteler">
+          <Key>
+            <PropertyRef Name="Fakulte_No" />
+          </Key>
+          <Property Name="Fakulte_No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fakulte_Adi" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="KulupEtkinlikFotograflari">
+          <Key>
+            <PropertyRef Name="FotoId" />
+          </Key>
+          <Property Name="FotoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EtkinlikId" Type="int" />
+          <Property Name="FotoURL" Type="varchar" MaxLength="300" />
+          <Property Name="FotoBaşlık" Type="varchar" MaxLength="60" />
+          <Property Name="FotoAçıklama" Type="varchar" MaxLength="300" />
+          <Property Name="isVisible" Type="bit" />
+        </EntityType>
+        <EntityType Name="KulupEtkinlikleri">
+          <Key>
+            <PropertyRef Name="Etkinlik_Id" />
+          </Key>
+          <Property Name="Etkinlik_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Etkinlik_Adi" Type="varchar" MaxLength="50" />
+          <Property Name="Etkinlik_Konusu" Type="varchar" MaxLength="400" />
+          <Property Name="Etkinlik_Tarihi" Type="smalldatetime" />
+          <Property Name="Etkinlik_Turu_Id" Type="smallint" />
+          <Property Name="Faaliyet_Turu_Id" Type="smallint" />
+          <Property Name="Adres" Type="varchar" MaxLength="250" />
+          <Property Name="isVisible" Type="bit" />
+          <Property Name="Kulup_Id" Type="int" />
+          <Property Name="OnayDurumu" Type="bit" />
+        </EntityType>
+        <EntityType Name="KulupGuvenlikBilgileri">
+          <Key>
+            <PropertyRef Name="KGuvenlikId" />
+          </Key>
+          <Property Name="KGuvenlikId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KulupId" Type="int" />
+          <Property Name="KullaniciAdi" Type="varchar" MaxLength="50" />
+          <Property Name="Sifre" Type="nvarchar" MaxLength="50" />
+          <Property Name="isVisible" Type="bit" />
+        </EntityType>
+        <EntityType Name="KulupKayit">
+          <Key>
+            <PropertyRef Name="Kulup_Id" />
+          </Key>
+          <Property Name="Kulup_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kulup_Adi" Type="varchar" MaxLength="100" />
+          <Property Name="Kulup_KurulusAmaci" Type="varchar" MaxLength="400" />
+          <Property Name="Universite_Id" Type="int" />
+          <Property Name="Fakulte_No" Type="int" />
+          <Property Name="KulupDanisman_Unvani" Type="varchar" MaxLength="50" />
+          <Property Name="KulupDanisman_Adi" Type="varchar" MaxLength="50" />
+          <Property Name="KulupDanisman_Soyadi" Type="varchar" MaxLength="50" />
+          <Property Name="KulupDanisman_Telefon" Type="varchar" MaxLength="11" />
+          <Property Name="KulupDanisman_MailAdresi" Type="varchar" MaxLength="100" />
+          <Property Name="OnayDurumu" Type="bit" />
+          <Property Name="isVisible" Type="bit" />
+        </EntityType>
+        <EntityType Name="KulupLogo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kulup_No" Type="int" />
+          <Property Name="Logo_Adresi" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Universite_Duyuru">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Duyuru" Type="varchar" MaxLength="300" />
+          <Property Name="Duyuru_Url" Type="varchar" MaxLength="200" />
+          <Property Name="Duyuru_Aciklama" Type="varchar" MaxLength="200" />
+          <Property Name="Tarih" Type="date" />
+        </EntityType>
+        <EntityType Name="UniversiteKayit">
+          <Key>
+            <PropertyRef Name="Universite_Id" />
+          </Key>
+          <Property Name="Universite_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Universite_Adi" Type="varchar" MaxLength="100" />
+          <Property Name="Universite_Kampus" Type="varchar" MaxLength="50" />
+          <Property Name="Universite_ilNo" Type="int" />
+          <Property Name="isVisible" Type="bit" />
+          <Property Name="Universite_ilceNo" Type="int" />
+          <Property Name="KullaniciAdi" Type="varchar" MaxLength="30" />
+          <Property Name="Sifre" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Uyeler">
+          <Key>
+            <PropertyRef Name="Uye_Id" />
+          </Key>
+          <Property Name="Uye_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Uye_OkulNo" Type="char" MaxLength="9" />
+          <Property Name="Uye_Adi" Type="varchar" MaxLength="50" />
+          <Property Name="Uye_Soyadi" Type="varchar" MaxLength="50" />
+          <Property Name="Uye_DogumTarihi" Type="date" />
+          <Property Name="Uye_FakulteNo" Type="int" />
+          <Property Name="Uye_BolumNo" Type="int" />
+          <Property Name="Uye_EPosta" Type="varchar" MaxLength="100" />
+          <Property Name="Uye_Telefon" Type="char" MaxLength="10" />
+          <Property Name="Unvan_Id" Type="int" />
+          <Property Name="isVisible" Type="bit" />
+          <Property Name="Kulup_Id" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UyeUnvanlari">
+          <Key>
+            <PropertyRef Name="Unvan_Id" />
+          </Key>
+          <Property Name="Unvan_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Unvan_Adi" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_BolumlerFakulteNo_FakultelerFakulteNo">
+          <End Role="Fakulteler" Type="Self.Fakulteler" Multiplicity="0..1" />
+          <End Role="Bolumler" Type="Self.Bolumler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fakulteler">
+              <PropertyRef Name="Fakulte_No" />
+            </Principal>
+            <Dependent Role="Bolumler">
+              <PropertyRef Name="Fakulte_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EtknlikKlpId_KlpKlpId">
+          <End Role="KulupKayit" Type="Self.KulupKayit" Multiplicity="0..1" />
+          <End Role="KulupEtkinlikleri" Type="Self.KulupEtkinlikleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KulupKayit">
+              <PropertyRef Name="Kulup_Id" />
+            </Principal>
+            <Dependent Role="KulupEtkinlikleri">
+              <PropertyRef Name="Kulup_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KGuvenlikKulupId_KulupKayitKulupId">
+          <End Role="KulupKayit" Type="Self.KulupKayit" Multiplicity="0..1" />
+          <End Role="KulupGuvenlikBilgileri" Type="Self.KulupGuvenlikBilgileri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KulupKayit">
+              <PropertyRef Name="Kulup_Id" />
+            </Principal>
+            <Dependent Role="KulupGuvenlikBilgileri">
+              <PropertyRef Name="KulupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KlpLogoKlpNo_KlpKayitKlpId">
+          <End Role="KulupKayit" Type="Self.KulupKayit" Multiplicity="0..1" />
+          <End Role="KulupLogo" Type="Self.KulupLogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KulupKayit">
+              <PropertyRef Name="Kulup_Id" />
+            </Principal>
+            <Dependent Role="KulupLogo">
+              <PropertyRef Name="Kulup_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KulupEtkFotoEtkId_KulupEtkEtkId">
+          <End Role="KulupEtkinlikleri" Type="Self.KulupEtkinlikleri" Multiplicity="0..1" />
+          <End Role="KulupEtkinlikFotograflari" Type="Self.KulupEtkinlikFotograflari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KulupEtkinlikleri">
+              <PropertyRef Name="Etkinlik_Id" />
+            </Principal>
+            <Dependent Role="KulupEtkinlikFotograflari">
+              <PropertyRef Name="EtkinlikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KulupEtknlkEtkTuruId_EtkTurleriId">
+          <End Role="EtkinlikTurleri" Type="Self.EtkinlikTurleri" Multiplicity="0..1" />
+          <End Role="KulupEtkinlikleri" Type="Self.KulupEtkinlikleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EtkinlikTurleri">
+              <PropertyRef Name="Etkinlik_Turu_Id" />
+            </Principal>
+            <Dependent Role="KulupEtkinlikleri">
+              <PropertyRef Name="Etkinlik_Turu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KulupEtknlkEtkTuruId_FaliytTurleriId">
+          <End Role="FaaliyetTurleri" Type="Self.FaaliyetTurleri" Multiplicity="0..1" />
+          <End Role="KulupEtkinlikleri" Type="Self.KulupEtkinlikleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FaaliyetTurleri">
+              <PropertyRef Name="Faaliyet_Turu_Id" />
+            </Principal>
+            <Dependent Role="KulupEtkinlikleri">
+              <PropertyRef Name="Faaliyet_Turu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KulupKayitFakulteNo_FakultelerFakulteNo">
+          <End Role="Fakulteler" Type="Self.Fakulteler" Multiplicity="0..1" />
+          <End Role="KulupKayit" Type="Self.KulupKayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fakulteler">
+              <PropertyRef Name="Fakulte_No" />
+            </Principal>
+            <Dependent Role="KulupKayit">
+              <PropertyRef Name="Fakulte_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KulupKayitUniId_UniversiteKayitId">
+          <End Role="UniversiteKayit" Type="Self.UniversiteKayit" Multiplicity="0..1" />
+          <End Role="KulupKayit" Type="Self.KulupKayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UniversiteKayit">
+              <PropertyRef Name="Universite_Id" />
+            </Principal>
+            <Dependent Role="KulupKayit">
+              <PropertyRef Name="Universite_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UyeBolum_BolumId">
+          <End Role="Bolumler" Type="Self.Bolumler" Multiplicity="0..1" />
+          <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bolumler">
+              <PropertyRef Name="Bolum_No" />
+            </Principal>
+            <Dependent Role="Uyeler">
+              <PropertyRef Name="Uye_BolumNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UyeFakulte_FakulteId">
+          <End Role="Fakulteler" Type="Self.Fakulteler" Multiplicity="0..1" />
+          <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fakulteler">
+              <PropertyRef Name="Fakulte_No" />
+            </Principal>
+            <Dependent Role="Uyeler">
+              <PropertyRef Name="Uye_FakulteNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UyeKlpId_KlpKytId">
+          <End Role="KulupKayit" Type="Self.KulupKayit" Multiplicity="0..1" />
+          <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KulupKayit">
+              <PropertyRef Name="Kulup_Id" />
+            </Principal>
+            <Dependent Role="Uyeler">
+              <PropertyRef Name="Kulup_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UyeUnvanId_UnvanId">
+          <End Role="UyeUnvanlari" Type="Self.UyeUnvanlari" Multiplicity="0..1" />
+          <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UyeUnvanlari">
+              <PropertyRef Name="Unvan_Id" />
+            </Principal>
+            <Dependent Role="Uyeler">
+              <PropertyRef Name="Unvan_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UniversiteKulupYonetimDBModelStoreContainer">
+          <EntitySet Name="Bolumler" EntityType="Self.Bolumler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fakulteler" EntityType="Self.Fakulteler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KulupEtkinlikFotograflari" EntityType="Self.KulupEtkinlikFotograflari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KulupEtkinlikleri" EntityType="Self.KulupEtkinlikleri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KulupGuvenlikBilgileri" EntityType="Self.KulupGuvenlikBilgileri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KulupKayit" EntityType="Self.KulupKayit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KulupLogo" EntityType="Self.KulupLogo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Universite_Duyuru" EntityType="Self.Universite_Duyuru" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UniversiteKayit" EntityType="Self.UniversiteKayit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uyeler" EntityType="Self.Uyeler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EtkinlikTurleri" EntityType="Self.EtkinlikTurleri" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EtkinlikTurleri].[Etkinlik_Turu_Id] AS [Etkinlik_Turu_Id], 
+    [EtkinlikTurleri].[Etkinlik_Turu_Adi] AS [Etkinlik_Turu_Adi]
+    FROM [dbo].[EtkinlikTurleri] AS [EtkinlikTurleri]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="FaaliyetTurleri" EntityType="Self.FaaliyetTurleri" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FaaliyetTurleri].[Faaliyet_Turu_Id] AS [Faaliyet_Turu_Id], 
+    [FaaliyetTurleri].[Faaliyet_Turu_Adi] AS [Faaliyet_Turu_Adi]
+    FROM [dbo].[FaaliyetTurleri] AS [FaaliyetTurleri]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UyeUnvanlari" EntityType="Self.UyeUnvanlari" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UyeUnvanlari].[Unvan_Id] AS [Unvan_Id], 
+    [UyeUnvanlari].[Unvan_Adi] AS [Unvan_Adi]
+    FROM [dbo].[UyeUnvanlari] AS [UyeUnvanlari]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_BolumlerFakulteNo_FakultelerFakulteNo" Association="Self.FK_BolumlerFakulteNo_FakultelerFakulteNo">
+            <End Role="Fakulteler" EntitySet="Fakulteler" />
+            <End Role="Bolumler" EntitySet="Bolumler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EtknlikKlpId_KlpKlpId" Association="Self.FK_EtknlikKlpId_KlpKlpId">
+            <End Role="KulupKayit" EntitySet="KulupKayit" />
+            <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KGuvenlikKulupId_KulupKayitKulupId" Association="Self.FK_KGuvenlikKulupId_KulupKayitKulupId">
+            <End Role="KulupKayit" EntitySet="KulupKayit" />
+            <End Role="KulupGuvenlikBilgileri" EntitySet="KulupGuvenlikBilgileri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KlpLogoKlpNo_KlpKayitKlpId" Association="Self.FK_KlpLogoKlpNo_KlpKayitKlpId">
+            <End Role="KulupKayit" EntitySet="KulupKayit" />
+            <End Role="KulupLogo" EntitySet="KulupLogo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KulupEtkFotoEtkId_KulupEtkEtkId" Association="Self.FK_KulupEtkFotoEtkId_KulupEtkEtkId">
+            <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
+            <End Role="KulupEtkinlikFotograflari" EntitySet="KulupEtkinlikFotograflari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KulupEtknlkEtkTuruId_EtkTurleriId" Association="Self.FK_KulupEtknlkEtkTuruId_EtkTurleriId">
+            <End Role="EtkinlikTurleri" EntitySet="EtkinlikTurleri" />
+            <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KulupEtknlkEtkTuruId_FaliytTurleriId" Association="Self.FK_KulupEtknlkEtkTuruId_FaliytTurleriId">
+            <End Role="FaaliyetTurleri" EntitySet="FaaliyetTurleri" />
+            <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KulupKayitFakulteNo_FakultelerFakulteNo" Association="Self.FK_KulupKayitFakulteNo_FakultelerFakulteNo">
+            <End Role="Fakulteler" EntitySet="Fakulteler" />
+            <End Role="KulupKayit" EntitySet="KulupKayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KulupKayitUniId_UniversiteKayitId" Association="Self.FK_KulupKayitUniId_UniversiteKayitId">
+            <End Role="UniversiteKayit" EntitySet="UniversiteKayit" />
+            <End Role="KulupKayit" EntitySet="KulupKayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UyeBolum_BolumId" Association="Self.FK_UyeBolum_BolumId">
+            <End Role="Bolumler" EntitySet="Bolumler" />
+            <End Role="Uyeler" EntitySet="Uyeler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UyeFakulte_FakulteId" Association="Self.FK_UyeFakulte_FakulteId">
+            <End Role="Fakulteler" EntitySet="Fakulteler" />
+            <End Role="Uyeler" EntitySet="Uyeler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UyeKlpId_KlpKytId" Association="Self.FK_UyeKlpId_KlpKytId">
+            <End Role="KulupKayit" EntitySet="KulupKayit" />
+            <End Role="Uyeler" EntitySet="Uyeler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UyeUnvanId_UnvanId" Association="Self.FK_UyeUnvanId_UnvanId">
+            <End Role="UyeUnvanlari" EntitySet="UyeUnvanlari" />
+            <End Role="Uyeler" EntitySet="Uyeler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UniversiteKulupYonetimDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="UniversiteKulupYonetimDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bolumler" EntityType="UniversiteKulupYonetimDBModel.Bolumler" />
+          <EntitySet Name="Fakulteler" EntityType="UniversiteKulupYonetimDBModel.Fakulteler" />
+          <EntitySet Name="KulupEtkinlikFotograflari" EntityType="UniversiteKulupYonetimDBModel.KulupEtkinlikFotograflari" />
+          <EntitySet Name="KulupEtkinlikleri" EntityType="UniversiteKulupYonetimDBModel.KulupEtkinlikleri" />
+          <EntitySet Name="KulupGuvenlikBilgileri" EntityType="UniversiteKulupYonetimDBModel.KulupGuvenlikBilgileri" />
+          <EntitySet Name="KulupKayit" EntityType="UniversiteKulupYonetimDBModel.KulupKayit" />
+          <EntitySet Name="KulupLogo" EntityType="UniversiteKulupYonetimDBModel.KulupLogo" />
+          <EntitySet Name="sysdiagrams" EntityType="UniversiteKulupYonetimDBModel.sysdiagrams" />
+          <EntitySet Name="UniversiteKayit" EntityType="UniversiteKulupYonetimDBModel.UniversiteKayit" />
+          <EntitySet Name="Uyeler" EntityType="UniversiteKulupYonetimDBModel.Uyeler" />
+          <EntitySet Name="EtkinlikTurleri" EntityType="UniversiteKulupYonetimDBModel.EtkinlikTurleri" />
+          <EntitySet Name="FaaliyetTurleri" EntityType="UniversiteKulupYonetimDBModel.FaaliyetTurleri" />
+          <EntitySet Name="UyeUnvanlari" EntityType="UniversiteKulupYonetimDBModel.UyeUnvanlari" />
+          <AssociationSet Name="FK_BolumlerFakulteNo_FakultelerFakulteNo" Association="UniversiteKulupYonetimDBModel.FK_BolumlerFakulteNo_FakultelerFakulteNo">
+            <End Role="Fakulteler" EntitySet="Fakulteler" />
+            <End Role="Bolumler" EntitySet="Bolumler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UyeBolum_BolumId" Association="UniversiteKulupYonetimDBModel.FK_UyeBolum_BolumId">
+            <End Role="Bolumler" EntitySet="Bolumler" />
+            <End Role="Uyeler" EntitySet="Uyeler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KulupKayitFakulteNo_FakultelerFakulteNo" Association="UniversiteKulupYonetimDBModel.FK_KulupKayitFakulteNo_FakultelerFakulteNo">
+            <End Role="Fakulteler" EntitySet="Fakulteler" />
+            <End Role="KulupKayit" EntitySet="KulupKayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UyeFakulte_FakulteId" Association="UniversiteKulupYonetimDBModel.FK_UyeFakulte_FakulteId">
+            <End Role="Fakulteler" EntitySet="Fakulteler" />
+            <End Role="Uyeler" EntitySet="Uyeler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KulupEtkFotoEtkId_KulupEtkEtkId" Association="UniversiteKulupYonetimDBModel.FK_KulupEtkFotoEtkId_KulupEtkEtkId">
+            <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
+            <End Role="KulupEtkinlikFotograflari" EntitySet="KulupEtkinlikFotograflari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EtknlikKlpId_KlpKlpId" Association="UniversiteKulupYonetimDBModel.FK_EtknlikKlpId_KlpKlpId">
+            <End Role="KulupKayit" EntitySet="KulupKayit" />
+            <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KulupEtknlkEtkTuruId_EtkTurleriId" Association="UniversiteKulupYonetimDBModel.FK_KulupEtknlkEtkTuruId_EtkTurleriId">
+            <End Role="EtkinlikTurleri" EntitySet="EtkinlikTurleri" />
+            <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KulupEtknlkEtkTuruId_FaliytTurleriId" Association="UniversiteKulupYonetimDBModel.FK_KulupEtknlkEtkTuruId_FaliytTurleriId">
+            <End Role="FaaliyetTurleri" EntitySet="FaaliyetTurleri" />
+            <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KGuvenlikKulupId_KulupKayitKulupId" Association="UniversiteKulupYonetimDBModel.FK_KGuvenlikKulupId_KulupKayitKulupId">
+            <End Role="KulupKayit" EntitySet="KulupKayit" />
+            <End Role="KulupGuvenlikBilgileri" EntitySet="KulupGuvenlikBilgileri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KlpLogoKlpNo_KlpKayitKlpId" Association="UniversiteKulupYonetimDBModel.FK_KlpLogoKlpNo_KlpKayitKlpId">
+            <End Role="KulupKayit" EntitySet="KulupKayit" />
+            <End Role="KulupLogo" EntitySet="KulupLogo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KulupKayitUniId_UniversiteKayitId" Association="UniversiteKulupYonetimDBModel.FK_KulupKayitUniId_UniversiteKayitId">
+            <End Role="UniversiteKayit" EntitySet="UniversiteKayit" />
+            <End Role="KulupKayit" EntitySet="KulupKayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UyeKlpId_KlpKytId" Association="UniversiteKulupYonetimDBModel.FK_UyeKlpId_KlpKytId">
+            <End Role="KulupKayit" EntitySet="KulupKayit" />
+            <End Role="Uyeler" EntitySet="Uyeler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UyeUnvanId_UnvanId" Association="UniversiteKulupYonetimDBModel.FK_UyeUnvanId_UnvanId">
+            <End Role="UyeUnvanlari" EntitySet="UyeUnvanlari" />
+            <End Role="Uyeler" EntitySet="Uyeler" />
+          </AssociationSet>
+          <EntitySet Name="Universite_Duyuru" EntityType="UniversiteKulupYonetimDBModel.Universite_Duyuru" />
+        </EntityContainer>
+        <EntityType Name="Bolumler">
+          <Key>
+            <PropertyRef Name="Bolum_No" />
+          </Key>
+          <Property Name="Bolum_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fakulte_No" Type="Int32" />
+          <Property Name="Bolum_Adi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Fakulteler" Relationship="UniversiteKulupYonetimDBModel.FK_BolumlerFakulteNo_FakultelerFakulteNo" FromRole="Bolumler" ToRole="Fakulteler" />
+          <NavigationProperty Name="Uyeler" Relationship="UniversiteKulupYonetimDBModel.FK_UyeBolum_BolumId" FromRole="Bolumler" ToRole="Uyeler" />
+        </EntityType>
+        <EntityType Name="Fakulteler">
+          <Key>
+            <PropertyRef Name="Fakulte_No" />
+          </Key>
+          <Property Name="Fakulte_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fakulte_Adi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Bolumler" Relationship="UniversiteKulupYonetimDBModel.FK_BolumlerFakulteNo_FakultelerFakulteNo" FromRole="Fakulteler" ToRole="Bolumler" />
+          <NavigationProperty Name="KulupKayit" Relationship="UniversiteKulupYonetimDBModel.FK_KulupKayitFakulteNo_FakultelerFakulteNo" FromRole="Fakulteler" ToRole="KulupKayit" />
+          <NavigationProperty Name="Uyeler" Relationship="UniversiteKulupYonetimDBModel.FK_UyeFakulte_FakulteId" FromRole="Fakulteler" ToRole="Uyeler" />
+        </EntityType>
+        <EntityType Name="KulupEtkinlikFotograflari">
+          <Key>
+            <PropertyRef Name="FotoId" />
+          </Key>
+          <Property Name="FotoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EtkinlikId" Type="Int32" />
+          <Property Name="FotoURL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="FotoBaşlık" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="FotoAçıklama" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="isVisible" Type="Boolean" />
+          <NavigationProperty Name="KulupEtkinlikleri" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtkFotoEtkId_KulupEtkEtkId" FromRole="KulupEtkinlikFotograflari" ToRole="KulupEtkinlikleri" />
+        </EntityType>
+        <EntityType Name="KulupEtkinlikleri">
+          <Key>
+            <PropertyRef Name="Etkinlik_Id" />
+          </Key>
+          <Property Name="Etkinlik_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Etkinlik_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Etkinlik_Konusu" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Etkinlik_Tarihi" Type="DateTime" Precision="0" />
+          <Property Name="Etkinlik_Turu_Id" Type="Int16" />
+          <Property Name="Faaliyet_Turu_Id" Type="Int16" />
+          <Property Name="Adres" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="isVisible" Type="Boolean" />
+          <Property Name="Kulup_Id" Type="Int32" />
+          <NavigationProperty Name="KulupEtkinlikFotograflari" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtkFotoEtkId_KulupEtkEtkId" FromRole="KulupEtkinlikleri" ToRole="KulupEtkinlikFotograflari" />
+          <NavigationProperty Name="KulupKayit" Relationship="UniversiteKulupYonetimDBModel.FK_EtknlikKlpId_KlpKlpId" FromRole="KulupEtkinlikleri" ToRole="KulupKayit" />
+          <NavigationProperty Name="EtkinlikTurleri" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtknlkEtkTuruId_EtkTurleriId" FromRole="KulupEtkinlikleri" ToRole="EtkinlikTurleri" />
+          <NavigationProperty Name="FaaliyetTurleri" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtknlkEtkTuruId_FaliytTurleriId" FromRole="KulupEtkinlikleri" ToRole="FaaliyetTurleri" />
+          <Property Name="OnayDurumu" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="KulupGuvenlikBilgileri">
+          <Key>
+            <PropertyRef Name="KGuvenlikId" />
+          </Key>
+          <Property Name="KGuvenlikId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KulupId" Type="Int32" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isVisible" Type="Boolean" />
+          <NavigationProperty Name="KulupKayit" Relationship="UniversiteKulupYonetimDBModel.FK_KGuvenlikKulupId_KulupKayitKulupId" FromRole="KulupGuvenlikBilgileri" ToRole="KulupKayit" />
+        </EntityType>
+        <EntityType Name="KulupKayit">
+          <Key>
+            <PropertyRef Name="Kulup_Id" />
+          </Key>
+          <Property Name="Kulup_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kulup_Adi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Kulup_KurulusAmaci" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Universite_Id" Type="Int32" />
+          <Property Name="Fakulte_No" Type="Int32" />
+          <Property Name="KulupDanisman_Unvani" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KulupDanisman_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KulupDanisman_Soyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KulupDanisman_Telefon" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="KulupDanisman_MailAdresi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OnayDurumu" Type="Boolean" />
+          <Property Name="isVisible" Type="Boolean" />
+          <NavigationProperty Name="Fakulteler" Relationship="UniversiteKulupYonetimDBModel.FK_KulupKayitFakulteNo_FakultelerFakulteNo" FromRole="KulupKayit" ToRole="Fakulteler" />
+          <NavigationProperty Name="KulupEtkinlikleri" Relationship="UniversiteKulupYonetimDBModel.FK_EtknlikKlpId_KlpKlpId" FromRole="KulupKayit" ToRole="KulupEtkinlikleri" />
+          <NavigationProperty Name="KulupGuvenlikBilgileri" Relationship="UniversiteKulupYonetimDBModel.FK_KGuvenlikKulupId_KulupKayitKulupId" FromRole="KulupKayit" ToRole="KulupGuvenlikBilgileri" />
+          <NavigationProperty Name="KulupLogo" Relationship="UniversiteKulupYonetimDBModel.FK_KlpLogoKlpNo_KlpKayitKlpId" FromRole="KulupKayit" ToRole="KulupLogo" />
+          <NavigationProperty Name="UniversiteKayit" Relationship="UniversiteKulupYonetimDBModel.FK_KulupKayitUniId_UniversiteKayitId" FromRole="KulupKayit" ToRole="UniversiteKayit" />
+          <NavigationProperty Name="Uyeler" Relationship="UniversiteKulupYonetimDBModel.FK_UyeKlpId_KlpKytId" FromRole="KulupKayit" ToRole="Uyeler" />
+        </EntityType>
+        <EntityType Name="KulupLogo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kulup_No" Type="Int32" />
+          <Property Name="Logo_Adresi" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="KulupKayit" Relationship="UniversiteKulupYonetimDBModel.FK_KlpLogoKlpNo_KlpKayitKlpId" FromRole="KulupLogo" ToRole="KulupKayit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UniversiteKayit">
+          <Key>
+            <PropertyRef Name="Universite_Id" />
+          </Key>
+          <Property Name="Universite_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Universite_Adi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Universite_Kampus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Universite_ilNo" Type="Int32" />
+          <Property Name="isVisible" Type="Boolean" />
+          <Property Name="Universite_ilceNo" Type="Int32" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="KulupKayit" Relationship="UniversiteKulupYonetimDBModel.FK_KulupKayitUniId_UniversiteKayitId" FromRole="UniversiteKayit" ToRole="KulupKayit" />
+        </EntityType>
+        <EntityType Name="Uyeler">
+          <Key>
+            <PropertyRef Name="Uye_Id" />
+          </Key>
+          <Property Name="Uye_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Uye_OkulNo" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
+          <Property Name="Uye_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Uye_Soyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Uye_DogumTarihi" Type="DateTime" Precision="0" />
+          <Property Name="Uye_FakulteNo" Type="Int32" />
+          <Property Name="Uye_BolumNo" Type="Int32" />
+          <Property Name="Uye_EPosta" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Uye_Telefon" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Unvan_Id" Type="Int32" />
+          <Property Name="isVisible" Type="Boolean" />
+          <Property Name="Kulup_Id" Type="Int32" />
+          <NavigationProperty Name="Bolumler" Relationship="UniversiteKulupYonetimDBModel.FK_UyeBolum_BolumId" FromRole="Uyeler" ToRole="Bolumler" />
+          <NavigationProperty Name="Fakulteler" Relationship="UniversiteKulupYonetimDBModel.FK_UyeFakulte_FakulteId" FromRole="Uyeler" ToRole="Fakulteler" />
+          <NavigationProperty Name="KulupKayit" Relationship="UniversiteKulupYonetimDBModel.FK_UyeKlpId_KlpKytId" FromRole="Uyeler" ToRole="KulupKayit" />
+          <NavigationProperty Name="UyeUnvanlari" Relationship="UniversiteKulupYonetimDBModel.FK_UyeUnvanId_UnvanId" FromRole="Uyeler" ToRole="UyeUnvanlari" />
+        </EntityType>
+        <EntityType Name="EtkinlikTurleri">
+          <Key>
+            <PropertyRef Name="Etkinlik_Turu_Id" />
+          </Key>
+          <Property Name="Etkinlik_Turu_Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Etkinlik_Turu_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="KulupEtkinlikleri" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtknlkEtkTuruId_EtkTurleriId" FromRole="EtkinlikTurleri" ToRole="KulupEtkinlikleri" />
+        </EntityType>
+        <EntityType Name="FaaliyetTurleri">
+          <Key>
+            <PropertyRef Name="Faaliyet_Turu_Id" />
+          </Key>
+          <Property Name="Faaliyet_Turu_Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Faaliyet_Turu_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="KulupEtkinlikleri" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtknlkEtkTuruId_FaliytTurleriId" FromRole="FaaliyetTurleri" ToRole="KulupEtkinlikleri" />
+        </EntityType>
+        <EntityType Name="UyeUnvanlari">
+          <Key>
+            <PropertyRef Name="Unvan_Id" />
+          </Key>
+          <Property Name="Unvan_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Unvan_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Uyeler" Relationship="UniversiteKulupYonetimDBModel.FK_UyeUnvanId_UnvanId" FromRole="UyeUnvanlari" ToRole="Uyeler" />
+        </EntityType>
+        <Association Name="FK_BolumlerFakulteNo_FakultelerFakulteNo">
+          <End Type="UniversiteKulupYonetimDBModel.Fakulteler" Role="Fakulteler" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.Bolumler" Role="Bolumler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fakulteler">
+              <PropertyRef Name="Fakulte_No" />
+            </Principal>
+            <Dependent Role="Bolumler">
+              <PropertyRef Name="Fakulte_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UyeBolum_BolumId">
+          <End Type="UniversiteKulupYonetimDBModel.Bolumler" Role="Bolumler" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.Uyeler" Role="Uyeler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bolumler">
+              <PropertyRef Name="Bolum_No" />
+            </Principal>
+            <Dependent Role="Uyeler">
+              <PropertyRef Name="Uye_BolumNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KulupKayitFakulteNo_FakultelerFakulteNo">
+          <End Type="UniversiteKulupYonetimDBModel.Fakulteler" Role="Fakulteler" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.KulupKayit" Role="KulupKayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fakulteler">
+              <PropertyRef Name="Fakulte_No" />
+            </Principal>
+            <Dependent Role="KulupKayit">
+              <PropertyRef Name="Fakulte_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UyeFakulte_FakulteId">
+          <End Type="UniversiteKulupYonetimDBModel.Fakulteler" Role="Fakulteler" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.Uyeler" Role="Uyeler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fakulteler">
+              <PropertyRef Name="Fakulte_No" />
+            </Principal>
+            <Dependent Role="Uyeler">
+              <PropertyRef Name="Uye_FakulteNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KulupEtkFotoEtkId_KulupEtkEtkId">
+          <End Type="UniversiteKulupYonetimDBModel.KulupEtkinlikleri" Role="KulupEtkinlikleri" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.KulupEtkinlikFotograflari" Role="KulupEtkinlikFotograflari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KulupEtkinlikleri">
+              <PropertyRef Name="Etkinlik_Id" />
+            </Principal>
+            <Dependent Role="KulupEtkinlikFotograflari">
+              <PropertyRef Name="EtkinlikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EtknlikKlpId_KlpKlpId">
+          <End Type="UniversiteKulupYonetimDBModel.KulupKayit" Role="KulupKayit" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.KulupEtkinlikleri" Role="KulupEtkinlikleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KulupKayit">
+              <PropertyRef Name="Kulup_Id" />
+            </Principal>
+            <Dependent Role="KulupEtkinlikleri">
+              <PropertyRef Name="Kulup_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KulupEtknlkEtkTuruId_EtkTurleriId">
+          <End Type="UniversiteKulupYonetimDBModel.EtkinlikTurleri" Role="EtkinlikTurleri" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.KulupEtkinlikleri" Role="KulupEtkinlikleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EtkinlikTurleri">
+              <PropertyRef Name="Etkinlik_Turu_Id" />
+            </Principal>
+            <Dependent Role="KulupEtkinlikleri">
+              <PropertyRef Name="Etkinlik_Turu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KulupEtknlkEtkTuruId_FaliytTurleriId">
+          <End Type="UniversiteKulupYonetimDBModel.FaaliyetTurleri" Role="FaaliyetTurleri" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.KulupEtkinlikleri" Role="KulupEtkinlikleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FaaliyetTurleri">
+              <PropertyRef Name="Faaliyet_Turu_Id" />
+            </Principal>
+            <Dependent Role="KulupEtkinlikleri">
+              <PropertyRef Name="Faaliyet_Turu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KGuvenlikKulupId_KulupKayitKulupId">
+          <End Type="UniversiteKulupYonetimDBModel.KulupKayit" Role="KulupKayit" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.KulupGuvenlikBilgileri" Role="KulupGuvenlikBilgileri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KulupKayit">
+              <PropertyRef Name="Kulup_Id" />
+            </Principal>
+            <Dependent Role="KulupGuvenlikBilgileri">
+              <PropertyRef Name="KulupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KlpLogoKlpNo_KlpKayitKlpId">
+          <End Type="UniversiteKulupYonetimDBModel.KulupKayit" Role="KulupKayit" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.KulupLogo" Role="KulupLogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KulupKayit">
+              <PropertyRef Name="Kulup_Id" />
+            </Principal>
+            <Dependent Role="KulupLogo">
+              <PropertyRef Name="Kulup_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KulupKayitUniId_UniversiteKayitId">
+          <End Type="UniversiteKulupYonetimDBModel.UniversiteKayit" Role="UniversiteKayit" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.KulupKayit" Role="KulupKayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UniversiteKayit">
+              <PropertyRef Name="Universite_Id" />
+            </Principal>
+            <Dependent Role="KulupKayit">
+              <PropertyRef Name="Universite_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UyeKlpId_KlpKytId">
+          <End Type="UniversiteKulupYonetimDBModel.KulupKayit" Role="KulupKayit" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.Uyeler" Role="Uyeler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KulupKayit">
+              <PropertyRef Name="Kulup_Id" />
+            </Principal>
+            <Dependent Role="Uyeler">
+              <PropertyRef Name="Kulup_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UyeUnvanId_UnvanId">
+          <End Type="UniversiteKulupYonetimDBModel.UyeUnvanlari" Role="UyeUnvanlari" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.Uyeler" Role="Uyeler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UyeUnvanlari">
+              <PropertyRef Name="Unvan_Id" />
+            </Principal>
+            <Dependent Role="Uyeler">
+              <PropertyRef Name="Unvan_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Universite_Duyuru">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Duyuru" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Duyuru_Url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Duyuru_Aciklama" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UniversiteKulupYonetimDBModelStoreContainer" CdmEntityContainer="UniversiteKulupYonetimDBEntities">
+          <EntitySetMapping Name="Bolumler">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.Bolumler">
+              <MappingFragment StoreEntitySet="Bolumler">
+                <ScalarProperty Name="Bolum_Adi" ColumnName="Bolum_Adi" />
+                <ScalarProperty Name="Fakulte_No" ColumnName="Fakulte_No" />
+                <ScalarProperty Name="Bolum_No" ColumnName="Bolum_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fakulteler">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.Fakulteler">
+              <MappingFragment StoreEntitySet="Fakulteler">
+                <ScalarProperty Name="Fakulte_Adi" ColumnName="Fakulte_Adi" />
+                <ScalarProperty Name="Fakulte_No" ColumnName="Fakulte_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KulupEtkinlikFotograflari">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.KulupEtkinlikFotograflari">
+              <MappingFragment StoreEntitySet="KulupEtkinlikFotograflari">
+                <ScalarProperty Name="isVisible" ColumnName="isVisible" />
+                <ScalarProperty Name="FotoAçıklama" ColumnName="FotoAçıklama" />
+                <ScalarProperty Name="FotoBaşlık" ColumnName="FotoBaşlık" />
+                <ScalarProperty Name="FotoURL" ColumnName="FotoURL" />
+                <ScalarProperty Name="EtkinlikId" ColumnName="EtkinlikId" />
+                <ScalarProperty Name="FotoId" ColumnName="FotoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KulupEtkinlikleri">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.KulupEtkinlikleri">
+              <MappingFragment StoreEntitySet="KulupEtkinlikleri">
+                <ScalarProperty Name="OnayDurumu" ColumnName="OnayDurumu" />
+                <ScalarProperty Name="Kulup_Id" ColumnName="Kulup_Id" />
+                <ScalarProperty Name="isVisible" ColumnName="isVisible" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Faaliyet_Turu_Id" ColumnName="Faaliyet_Turu_Id" />
+                <ScalarProperty Name="Etkinlik_Turu_Id" ColumnName="Etkinlik_Turu_Id" />
+                <ScalarProperty Name="Etkinlik_Tarihi" ColumnName="Etkinlik_Tarihi" />
+                <ScalarProperty Name="Etkinlik_Konusu" ColumnName="Etkinlik_Konusu" />
+                <ScalarProperty Name="Etkinlik_Adi" ColumnName="Etkinlik_Adi" />
+                <ScalarProperty Name="Etkinlik_Id" ColumnName="Etkinlik_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KulupGuvenlikBilgileri">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.KulupGuvenlikBilgileri">
+              <MappingFragment StoreEntitySet="KulupGuvenlikBilgileri">
+                <ScalarProperty Name="isVisible" ColumnName="isVisible" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="KulupId" ColumnName="KulupId" />
+                <ScalarProperty Name="KGuvenlikId" ColumnName="KGuvenlikId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KulupKayit">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.KulupKayit">
+              <MappingFragment StoreEntitySet="KulupKayit">
+                <ScalarProperty Name="isVisible" ColumnName="isVisible" />
+                <ScalarProperty Name="OnayDurumu" ColumnName="OnayDurumu" />
+                <ScalarProperty Name="KulupDanisman_MailAdresi" ColumnName="KulupDanisman_MailAdresi" />
+                <ScalarProperty Name="KulupDanisman_Telefon" ColumnName="KulupDanisman_Telefon" />
+                <ScalarProperty Name="KulupDanisman_Soyadi" ColumnName="KulupDanisman_Soyadi" />
+                <ScalarProperty Name="KulupDanisman_Adi" ColumnName="KulupDanisman_Adi" />
+                <ScalarProperty Name="KulupDanisman_Unvani" ColumnName="KulupDanisman_Unvani" />
+                <ScalarProperty Name="Fakulte_No" ColumnName="Fakulte_No" />
+                <ScalarProperty Name="Universite_Id" ColumnName="Universite_Id" />
+                <ScalarProperty Name="Kulup_KurulusAmaci" ColumnName="Kulup_KurulusAmaci" />
+                <ScalarProperty Name="Kulup_Adi" ColumnName="Kulup_Adi" />
+                <ScalarProperty Name="Kulup_Id" ColumnName="Kulup_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KulupLogo">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.KulupLogo">
+              <MappingFragment StoreEntitySet="KulupLogo">
+                <ScalarProperty Name="Logo_Adresi" ColumnName="Logo_Adresi" />
+                <ScalarProperty Name="Kulup_No" ColumnName="Kulup_No" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UniversiteKayit">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.UniversiteKayit">
+              <MappingFragment StoreEntitySet="UniversiteKayit">
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="Universite_ilceNo" ColumnName="Universite_ilceNo" />
+                <ScalarProperty Name="isVisible" ColumnName="isVisible" />
+                <ScalarProperty Name="Universite_ilNo" ColumnName="Universite_ilNo" />
+                <ScalarProperty Name="Universite_Kampus" ColumnName="Universite_Kampus" />
+                <ScalarProperty Name="Universite_Adi" ColumnName="Universite_Adi" />
+                <ScalarProperty Name="Universite_Id" ColumnName="Universite_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uyeler">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.Uyeler">
+              <MappingFragment StoreEntitySet="Uyeler">
+                <ScalarProperty Name="Kulup_Id" ColumnName="Kulup_Id" />
+                <ScalarProperty Name="isVisible" ColumnName="isVisible" />
+                <ScalarProperty Name="Unvan_Id" ColumnName="Unvan_Id" />
+                <ScalarProperty Name="Uye_Telefon" ColumnName="Uye_Telefon" />
+                <ScalarProperty Name="Uye_EPosta" ColumnName="Uye_EPosta" />
+                <ScalarProperty Name="Uye_BolumNo" ColumnName="Uye_BolumNo" />
+                <ScalarProperty Name="Uye_FakulteNo" ColumnName="Uye_FakulteNo" />
+                <ScalarProperty Name="Uye_DogumTarihi" ColumnName="Uye_DogumTarihi" />
+                <ScalarProperty Name="Uye_Soyadi" ColumnName="Uye_Soyadi" />
+                <ScalarProperty Name="Uye_Adi" ColumnName="Uye_Adi" />
+                <ScalarProperty Name="Uye_OkulNo" ColumnName="Uye_OkulNo" />
+                <ScalarProperty Name="Uye_Id" ColumnName="Uye_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EtkinlikTurleri">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.EtkinlikTurleri">
+              <MappingFragment StoreEntitySet="EtkinlikTurleri">
+                <ScalarProperty Name="Etkinlik_Turu_Adi" ColumnName="Etkinlik_Turu_Adi" />
+                <ScalarProperty Name="Etkinlik_Turu_Id" ColumnName="Etkinlik_Turu_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FaaliyetTurleri">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.FaaliyetTurleri">
+              <MappingFragment StoreEntitySet="FaaliyetTurleri">
+                <ScalarProperty Name="Faaliyet_Turu_Adi" ColumnName="Faaliyet_Turu_Adi" />
+                <ScalarProperty Name="Faaliyet_Turu_Id" ColumnName="Faaliyet_Turu_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UyeUnvanlari">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.UyeUnvanlari">
+              <MappingFragment StoreEntitySet="UyeUnvanlari">
+                <ScalarProperty Name="Unvan_Adi" ColumnName="Unvan_Adi" />
+                <ScalarProperty Name="Unvan_Id" ColumnName="Unvan_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Universite_Duyuru">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.Universite_Duyuru">
+              <MappingFragment StoreEntitySet="Universite_Duyuru">
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Duyuru_Aciklama" ColumnName="Duyuru_Aciklama" />
+                <ScalarProperty Name="Duyuru_Url" ColumnName="Duyuru_Url" />
+                <ScalarProperty Name="Duyuru" ColumnName="Duyuru" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

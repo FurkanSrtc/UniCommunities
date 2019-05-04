@@ -1,0 +1,67 @@
+﻿@model IEnumerable<UniversityCommunities.Models.KulupEtkinlikleri>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Etkinlik_Adi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Etkinlik_Konusu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Etkinlik_Tarihi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adres)
+        </th>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.KulupKayit.Kulup_Adi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EtkinlikTurleri.Etkinlik_Turu_Adi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FaaliyetTurleri.Faaliyet_Turu_Adi)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Etkinlik_Adi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Etkinlik_Konusu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Etkinlik_Tarihi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adres)
+        </td>
+    
+        <td>
+            @Html.DisplayFor(modelItem => item.KulupKayit.Kulup_Adi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EtkinlikTurleri.Etkinlik_Turu_Adi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FaaliyetTurleri.Faaliyet_Turu_Adi)
+        </td>
+     
+    </tr>
+}
+
+</table>

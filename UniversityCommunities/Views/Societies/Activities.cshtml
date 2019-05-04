@@ -1,0 +1,84 @@
+﻿@model IEnumerable<UniversityCommunities.Models.KulupEtkinlikleri>
+
+@{
+    ViewBag.Title = "Activities";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Etkinlikler</h2>
+
+<p>
+    @Html.ActionLink("Yeni Etkinlik Oluştur", "AddActivity", "Societies")
+</p>
+<div class="table-responsive-md">
+    <table class="table">
+        <tr>
+            <th>
+                Etkinlik Adı
+            </th>
+            <th>
+                Etkinlik Konusu
+            </th>
+            <th>
+                Tarih
+            </th>
+            <th>
+                Adres
+            </th>
+
+            <th>
+                Etkinlik Türü
+            </th>
+            <th>
+                Faaliyet Türü
+            </th>
+
+            <th>
+                Onay Durumu
+            </th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </th>
+           
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Etkinlik_Adi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Etkinlik_Konusu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Etkinlik_Tarihi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adres)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.EtkinlikTurleri.Etkinlik_Turu_Adi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaaliyetTurleri.Faaliyet_Turu_Adi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OnayDurumu)
+                    @*@if (((@Html.DisplayFor(modelItem => item.OnayDurumu)).ToString()) == "True")
+        {
+            <p>Onaylandı</p>
+        }
+        else
+        { <p>Onaylanmadı</p>}*@
+
+                </td>
+                <td>
+
+                    @Html.ActionLink("Düzenle", "Edit", new { id = item.Etkinlik_Id }, new { @class = "btn-group btn-group-toggle btn-warning btn-sm" })
+                    @Html.ActionLink("Sil", "Delete", new { id = item.Etkinlik_Id }, new { @class = "btn-group btn-group-toggle btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
