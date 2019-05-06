@@ -32,12 +32,14 @@ namespace UniversityCommunities.Models
         public virtual DbSet<KulupGuvenlikBilgileri> KulupGuvenlikBilgileri { get; set; }
         public virtual DbSet<KulupKayit> KulupKayit { get; set; }
         public virtual DbSet<KulupLogo> KulupLogo { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Universite_Duyuru> Universite_Duyuru { get; set; }
         public virtual DbSet<UniversiteKayit> UniversiteKayit { get; set; }
         public virtual DbSet<Uyeler> Uyeler { get; set; }
         public virtual DbSet<EtkinlikTurleri> EtkinlikTurleri { get; set; }
         public virtual DbSet<FaaliyetTurleri> FaaliyetTurleri { get; set; }
         public virtual DbSet<UyeUnvanlari> UyeUnvanlari { get; set; }
-        public virtual DbSet<Universite_Duyuru> Universite_Duyuru { get; set; }
+        public virtual DbSet<KonferansSalonlari> KonferansSalonlari { get; set; }
+        public virtual DbSet<Saatler> Saatler { get; set; }
+        public virtual DbSet<SalonTakvimi> SalonTakvimi { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace UniversityCommunities.Models
             this.Bolumler = new HashSet<Bolumler>();
             this.KulupKayit = new HashSet<KulupKayit>();
             this.Uyeler = new HashSet<Uyeler>();
+            this.KonferansSalonlari = new HashSet<KonferansSalonlari>();
         }
     
         public int Fakulte_No { get; set; }
@@ -31,5 +32,7 @@ namespace UniversityCommunities.Models
         public virtual ICollection<KulupKayit> KulupKayit { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Uyeler> Uyeler { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KonferansSalonlari> KonferansSalonlari { get; set; }
     }
 }

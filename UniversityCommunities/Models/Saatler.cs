@@ -12,12 +12,9 @@ namespace UniversityCommunities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class Saatler
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public byte id { get; set; }
+        public string Saat { get; set; }
     }
 }

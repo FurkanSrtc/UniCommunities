@@ -14,7 +14,7 @@
           <Property Name="Bolum_Adi" Type="varchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.EtkinlikTurleri' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'topluluko_db.dbo.EtkinlikTurleri' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EtkinlikTurleri">
           <Key>
             <PropertyRef Name="Etkinlik_Turu_Id" />
@@ -23,7 +23,7 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.EtkinlikTurleri' does
           <Property Name="Etkinlik_Turu_Adi" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.FaaliyetTurleri' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'topluluko_db.dbo.FaaliyetTurleri' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FaaliyetTurleri">
           <Key>
             <PropertyRef Name="Faaliyet_Turu_Id" />
@@ -63,6 +63,7 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.FaaliyetTurleri' does
           <Property Name="isVisible" Type="bit" />
           <Property Name="Kulup_Id" Type="int" />
           <Property Name="OnayDurumu" Type="bit" />
+          <Property Name="SalonId" Type="int" />
         </EntityType>
         <EntityType Name="KulupGuvenlikBilgileri">
           <Key>
@@ -98,16 +99,6 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.FaaliyetTurleri' does
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Kulup_No" Type="int" />
           <Property Name="Logo_Adresi" Type="varchar" MaxLength="250" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Universite_Duyuru">
           <Key>
@@ -150,13 +141,38 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.FaaliyetTurleri' does
           <Property Name="Kulup_Id" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UyeUnvanlari">
           <Key>
             <PropertyRef Name="Unvan_Id" />
           </Key>
           <Property Name="Unvan_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Unvan_Adi" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="KonferansSalonlari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalonAdi" Type="varchar" MaxLength="100" />
+          <Property Name="SalonFakultesi" Type="int" />
+          <Property Name="Kontenjan" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Saatler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Saat" Type="char" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="SalonTakvimi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalonId" Type="int" />
+          <Property Name="BaslangicSaatId" Type="smalldatetime" />
+          <Property Name="BitisSaatId" Type="smalldatetime" />
         </EntityType>
         <Association Name="FK_BolumlerFakulteNo_FakultelerFakulteNo">
           <End Role="Fakulteler" Type="Self.Fakulteler" Multiplicity="0..1" />
@@ -206,6 +222,18 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_KonferansSalonlariFakId_FakultelerId">
+          <End Role="Fakulteler" Type="Self.Fakulteler" Multiplicity="0..1" />
+          <End Role="KonferansSalonlari" Type="Self.KonferansSalonlari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fakulteler">
+              <PropertyRef Name="Fakulte_No" />
+            </Principal>
+            <Dependent Role="KonferansSalonlari">
+              <PropertyRef Name="SalonFakultesi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_KulupEtkFotoEtkId_KulupEtkEtkId">
           <End Role="KulupEtkinlikleri" Type="Self.KulupEtkinlikleri" Multiplicity="0..1" />
           <End Role="KulupEtkinlikFotograflari" Type="Self.KulupEtkinlikFotograflari" Multiplicity="*" />
@@ -215,6 +243,18 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
             </Principal>
             <Dependent Role="KulupEtkinlikFotograflari">
               <PropertyRef Name="EtkinlikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KulupEtkinlikleriSalonId_SalonTakvimiId">
+          <End Role="SalonTakvimi" Type="Self.SalonTakvimi" Multiplicity="0..1" />
+          <End Role="KulupEtkinlikleri" Type="Self.KulupEtkinlikleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalonTakvimi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="KulupEtkinlikleri">
+              <PropertyRef Name="SalonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -263,6 +303,18 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
             </Principal>
             <Dependent Role="KulupKayit">
               <PropertyRef Name="Universite_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STakvimSalonId_SalonId">
+          <End Role="KonferansSalonlari" Type="Self.KonferansSalonlari" Multiplicity="1" />
+          <End Role="SalonTakvimi" Type="Self.SalonTakvimi" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="KonferansSalonlari">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SalonTakvimi">
+              <PropertyRef Name="id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -322,10 +374,12 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
           <EntitySet Name="KulupGuvenlikBilgileri" EntityType="Self.KulupGuvenlikBilgileri" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KulupKayit" EntityType="Self.KulupKayit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KulupLogo" EntityType="Self.KulupLogo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Universite_Duyuru" EntityType="Self.Universite_Duyuru" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UniversiteKayit" EntityType="Self.UniversiteKayit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Uyeler" EntityType="Self.Uyeler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KonferansSalonlari" EntityType="Self.KonferansSalonlari" Schema="topluluko_db" store:Type="Tables" />
+          <EntitySet Name="Saatler" EntityType="Self.Saatler" Schema="topluluko_db" store:Type="Tables" />
+          <EntitySet Name="SalonTakvimi" EntityType="Self.SalonTakvimi" Schema="topluluko_db" store:Type="Tables" />
           <EntitySet Name="EtkinlikTurleri" EntityType="Self.EtkinlikTurleri" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [EtkinlikTurleri].[Etkinlik_Turu_Id] AS [Etkinlik_Turu_Id], 
@@ -360,9 +414,17 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
             <End Role="KulupKayit" EntitySet="KulupKayit" />
             <End Role="KulupLogo" EntitySet="KulupLogo" />
           </AssociationSet>
+          <AssociationSet Name="FK_KonferansSalonlariFakId_FakultelerId" Association="Self.FK_KonferansSalonlariFakId_FakultelerId">
+            <End Role="Fakulteler" EntitySet="Fakulteler" />
+            <End Role="KonferansSalonlari" EntitySet="KonferansSalonlari" />
+          </AssociationSet>
           <AssociationSet Name="FK_KulupEtkFotoEtkId_KulupEtkEtkId" Association="Self.FK_KulupEtkFotoEtkId_KulupEtkEtkId">
             <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
             <End Role="KulupEtkinlikFotograflari" EntitySet="KulupEtkinlikFotograflari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KulupEtkinlikleriSalonId_SalonTakvimiId" Association="Self.FK_KulupEtkinlikleriSalonId_SalonTakvimiId">
+            <End Role="SalonTakvimi" EntitySet="SalonTakvimi" />
+            <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
           </AssociationSet>
           <AssociationSet Name="FK_KulupEtknlkEtkTuruId_EtkTurleriId" Association="Self.FK_KulupEtknlkEtkTuruId_EtkTurleriId">
             <End Role="EtkinlikTurleri" EntitySet="EtkinlikTurleri" />
@@ -379,6 +441,10 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
           <AssociationSet Name="FK_KulupKayitUniId_UniversiteKayitId" Association="Self.FK_KulupKayitUniId_UniversiteKayitId">
             <End Role="UniversiteKayit" EntitySet="UniversiteKayit" />
             <End Role="KulupKayit" EntitySet="KulupKayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STakvimSalonId_SalonId" Association="Self.FK_STakvimSalonId_SalonId">
+            <End Role="KonferansSalonlari" EntitySet="KonferansSalonlari" />
+            <End Role="SalonTakvimi" EntitySet="SalonTakvimi" />
           </AssociationSet>
           <AssociationSet Name="FK_UyeBolum_BolumId" Association="Self.FK_UyeBolum_BolumId">
             <End Role="Bolumler" EntitySet="Bolumler" />
@@ -409,7 +475,7 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
           <EntitySet Name="KulupGuvenlikBilgileri" EntityType="UniversiteKulupYonetimDBModel.KulupGuvenlikBilgileri" />
           <EntitySet Name="KulupKayit" EntityType="UniversiteKulupYonetimDBModel.KulupKayit" />
           <EntitySet Name="KulupLogo" EntityType="UniversiteKulupYonetimDBModel.KulupLogo" />
-          <EntitySet Name="sysdiagrams" EntityType="UniversiteKulupYonetimDBModel.sysdiagrams" />
+          <EntitySet Name="Universite_Duyuru" EntityType="UniversiteKulupYonetimDBModel.Universite_Duyuru" />
           <EntitySet Name="UniversiteKayit" EntityType="UniversiteKulupYonetimDBModel.UniversiteKayit" />
           <EntitySet Name="Uyeler" EntityType="UniversiteKulupYonetimDBModel.Uyeler" />
           <EntitySet Name="EtkinlikTurleri" EntityType="UniversiteKulupYonetimDBModel.EtkinlikTurleri" />
@@ -467,7 +533,21 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
             <End Role="UyeUnvanlari" EntitySet="UyeUnvanlari" />
             <End Role="Uyeler" EntitySet="Uyeler" />
           </AssociationSet>
-          <EntitySet Name="Universite_Duyuru" EntityType="UniversiteKulupYonetimDBModel.Universite_Duyuru" />
+          <EntitySet Name="KonferansSalonlari" EntityType="UniversiteKulupYonetimDBModel.KonferansSalonlari" />
+          <EntitySet Name="Saatler" EntityType="UniversiteKulupYonetimDBModel.Saatler" />
+          <EntitySet Name="SalonTakvimi" EntityType="UniversiteKulupYonetimDBModel.SalonTakvimi" />
+          <AssociationSet Name="FK_KonferansSalonlariFakId_FakultelerId" Association="UniversiteKulupYonetimDBModel.FK_KonferansSalonlariFakId_FakultelerId">
+            <End Role="Fakulteler" EntitySet="Fakulteler" />
+            <End Role="KonferansSalonlari" EntitySet="KonferansSalonlari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STakvimSalonId_SalonId" Association="UniversiteKulupYonetimDBModel.FK_STakvimSalonId_SalonId">
+            <End Role="KonferansSalonlari" EntitySet="KonferansSalonlari" />
+            <End Role="SalonTakvimi" EntitySet="SalonTakvimi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KulupEtkinlikleriSalonId_SalonTakvimiId" Association="UniversiteKulupYonetimDBModel.FK_KulupEtkinlikleriSalonId_SalonTakvimiId">
+            <End Role="SalonTakvimi" EntitySet="SalonTakvimi" />
+            <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Bolumler">
           <Key>
@@ -488,6 +568,7 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
           <NavigationProperty Name="Bolumler" Relationship="UniversiteKulupYonetimDBModel.FK_BolumlerFakulteNo_FakultelerFakulteNo" FromRole="Fakulteler" ToRole="Bolumler" />
           <NavigationProperty Name="KulupKayit" Relationship="UniversiteKulupYonetimDBModel.FK_KulupKayitFakulteNo_FakultelerFakulteNo" FromRole="Fakulteler" ToRole="KulupKayit" />
           <NavigationProperty Name="Uyeler" Relationship="UniversiteKulupYonetimDBModel.FK_UyeFakulte_FakulteId" FromRole="Fakulteler" ToRole="Uyeler" />
+          <NavigationProperty Name="KonferansSalonlari" Relationship="UniversiteKulupYonetimDBModel.FK_KonferansSalonlariFakId_FakultelerId" FromRole="Fakulteler" ToRole="KonferansSalonlari" />
         </EntityType>
         <EntityType Name="KulupEtkinlikFotograflari">
           <Key>
@@ -514,11 +595,13 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
           <Property Name="Adres" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="isVisible" Type="Boolean" />
           <Property Name="Kulup_Id" Type="Int32" />
+          <Property Name="OnayDurumu" Type="Boolean" />
           <NavigationProperty Name="KulupEtkinlikFotograflari" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtkFotoEtkId_KulupEtkEtkId" FromRole="KulupEtkinlikleri" ToRole="KulupEtkinlikFotograflari" />
           <NavigationProperty Name="KulupKayit" Relationship="UniversiteKulupYonetimDBModel.FK_EtknlikKlpId_KlpKlpId" FromRole="KulupEtkinlikleri" ToRole="KulupKayit" />
           <NavigationProperty Name="EtkinlikTurleri" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtknlkEtkTuruId_EtkTurleriId" FromRole="KulupEtkinlikleri" ToRole="EtkinlikTurleri" />
           <NavigationProperty Name="FaaliyetTurleri" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtknlkEtkTuruId_FaliytTurleriId" FromRole="KulupEtkinlikleri" ToRole="FaaliyetTurleri" />
-          <Property Name="OnayDurumu" Type="Boolean" />
+          <Property Name="SalonId" Type="Int32" />
+          <NavigationProperty Name="SalonTakvimi" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtkinlikleriSalonId_SalonTakvimiId" FromRole="KulupEtkinlikleri" ToRole="SalonTakvimi" />
         </EntityType>
         <EntityType Name="KulupGuvenlikBilgileri">
           <Key>
@@ -563,15 +646,15 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
           <Property Name="Logo_Adresi" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="KulupKayit" Relationship="UniversiteKulupYonetimDBModel.FK_KlpLogoKlpNo_KlpKayitKlpId" FromRole="KulupLogo" ToRole="KulupKayit" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
+        <EntityType Name="Universite_Duyuru">
           <Key>
-            <PropertyRef Name="diagram_id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Duyuru" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Duyuru_Url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Duyuru_Aciklama" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="UniversiteKayit">
           <Key>
@@ -788,16 +871,71 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Universite_Duyuru">
+        <EntityType Name="KonferansSalonlari">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Duyuru" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="Duyuru_Url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Duyuru_Aciklama" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Tarih" Type="DateTime" Precision="0" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalonAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SalonFakultesi" Type="Int32" />
+          <Property Name="Kontenjan" Type="Int16" />
+          <NavigationProperty Name="Fakulteler" Relationship="UniversiteKulupYonetimDBModel.FK_KonferansSalonlariFakId_FakultelerId" FromRole="KonferansSalonlari" ToRole="Fakulteler" />
+          <NavigationProperty Name="SalonTakvimi" Relationship="UniversiteKulupYonetimDBModel.FK_STakvimSalonId_SalonId" FromRole="KonferansSalonlari" ToRole="SalonTakvimi" />
         </EntityType>
+        <EntityType Name="Saatler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Saat" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SalonTakvimi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalonId" Type="Int32" />
+          <Property Name="BaslangicSaatId" Type="DateTime" Precision="0" />
+          <Property Name="BitisSaatId" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="KonferansSalonlari" Relationship="UniversiteKulupYonetimDBModel.FK_STakvimSalonId_SalonId" FromRole="SalonTakvimi" ToRole="KonferansSalonlari" />
+          <NavigationProperty Name="KulupEtkinlikleri" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtkinlikleriSalonId_SalonTakvimiId" FromRole="SalonTakvimi" ToRole="KulupEtkinlikleri" />
+        </EntityType>
+        <Association Name="FK_KonferansSalonlariFakId_FakultelerId">
+          <End Type="UniversiteKulupYonetimDBModel.Fakulteler" Role="Fakulteler" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.KonferansSalonlari" Role="KonferansSalonlari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fakulteler">
+              <PropertyRef Name="Fakulte_No" />
+            </Principal>
+            <Dependent Role="KonferansSalonlari">
+              <PropertyRef Name="SalonFakultesi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STakvimSalonId_SalonId">
+          <End Type="UniversiteKulupYonetimDBModel.KonferansSalonlari" Role="KonferansSalonlari" Multiplicity="1" />
+          <End Type="UniversiteKulupYonetimDBModel.SalonTakvimi" Role="SalonTakvimi" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="KonferansSalonlari">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SalonTakvimi">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KulupEtkinlikleriSalonId_SalonTakvimiId">
+          <End Type="UniversiteKulupYonetimDBModel.SalonTakvimi" Role="SalonTakvimi" Multiplicity="0..1" />
+          <End Type="UniversiteKulupYonetimDBModel.KulupEtkinlikleri" Role="KulupEtkinlikleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalonTakvimi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="KulupEtkinlikleri">
+              <PropertyRef Name="SalonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -836,6 +974,7 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
           <EntitySetMapping Name="KulupEtkinlikleri">
             <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.KulupEtkinlikleri">
               <MappingFragment StoreEntitySet="KulupEtkinlikleri">
+                <ScalarProperty Name="SalonId" ColumnName="SalonId" />
                 <ScalarProperty Name="OnayDurumu" ColumnName="OnayDurumu" />
                 <ScalarProperty Name="Kulup_Id" ColumnName="Kulup_Id" />
                 <ScalarProperty Name="isVisible" ColumnName="isVisible" />
@@ -887,14 +1026,14 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
+          <EntitySetMapping Name="Universite_Duyuru">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.Universite_Duyuru">
+              <MappingFragment StoreEntitySet="Universite_Duyuru">
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Duyuru_Aciklama" ColumnName="Duyuru_Aciklama" />
+                <ScalarProperty Name="Duyuru_Url" ColumnName="Duyuru_Url" />
+                <ScalarProperty Name="Duyuru" ColumnName="Duyuru" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -954,14 +1093,31 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Universite_Duyuru">
-            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.Universite_Duyuru">
-              <MappingFragment StoreEntitySet="Universite_Duyuru">
-                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
-                <ScalarProperty Name="Duyuru_Aciklama" ColumnName="Duyuru_Aciklama" />
-                <ScalarProperty Name="Duyuru_Url" ColumnName="Duyuru_Url" />
-                <ScalarProperty Name="Duyuru" ColumnName="Duyuru" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+          <EntitySetMapping Name="KonferansSalonlari">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.KonferansSalonlari">
+              <MappingFragment StoreEntitySet="KonferansSalonlari">
+                <ScalarProperty Name="Kontenjan" ColumnName="Kontenjan" />
+                <ScalarProperty Name="SalonFakultesi" ColumnName="SalonFakultesi" />
+                <ScalarProperty Name="SalonAdi" ColumnName="SalonAdi" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Saatler">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.Saatler">
+              <MappingFragment StoreEntitySet="Saatler">
+                <ScalarProperty Name="Saat" ColumnName="Saat" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalonTakvimi">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.SalonTakvimi">
+              <MappingFragment StoreEntitySet="SalonTakvimi">
+                <ScalarProperty Name="BitisSaatId" ColumnName="BitisSaatId" />
+                <ScalarProperty Name="BaslangicSaatId" ColumnName="BaslangicSaatId" />
+                <ScalarProperty Name="SalonId" ColumnName="SalonId" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -979,7 +1135,7 @@ warning 6002: The table/view 'UniversiteKulupYonetimDB.dbo.UyeUnvanlari' does no
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

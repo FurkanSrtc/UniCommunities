@@ -36,6 +36,9 @@ namespace UniversityCommunities.Models.ViewModels
 
         public int Kulup_Id { get; set; }
 
-   
+        [Required(ErrorMessage = "Bu Alan Gerekli")]
+        [DisplayName("Konferans Salonu Kullanılacak Mı ?")]
+        public bool KonferansSalonu { get; set; }
+
     }
 }

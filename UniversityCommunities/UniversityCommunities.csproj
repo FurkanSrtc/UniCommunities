@@ -209,6 +209,9 @@
     <Compile Include="Models\Fakulteler.cs">
       <DependentUpon>DBModel1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\KonferansSalonlari.cs">
+      <DependentUpon>DBModel1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\KulupEtkinlikFotograflari.cs">
       <DependentUpon>DBModel1.tt</DependentUpon>
     </Compile>
@@ -221,6 +224,12 @@
     <Compile Include="Models\KulupKayit.cs">
       <DependentUpon>DBModel1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Saatler.cs">
+      <DependentUpon>DBModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalonTakvimi.cs">
+      <DependentUpon>DBModel1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Universite_Duyuru.cs">
       <DependentUpon>DBModel1.tt</DependentUpon>
     </Compile>
@@ -229,9 +238,6 @@
     <Compile Include="Models\ViewModels\KulupGuvenlikBilgileriViewModel.cs" />
     <Compile Include="Models\ViewModels\KulupKayitViewModel.cs" />
     <Compile Include="Models\KulupLogo.cs">
-      <DependentUpon>DBModel1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>DBModel1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UniversiteKayit.cs">

@@ -30,11 +30,13 @@ namespace UniversityCommunities.Models
         public Nullable<bool> isVisible { get; set; }
         public Nullable<int> Kulup_Id { get; set; }
         public Nullable<bool> OnayDurumu { get; set; }
+        public Nullable<int> SalonId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KulupEtkinlikFotograflari> KulupEtkinlikFotograflari { get; set; }
         public virtual KulupKayit KulupKayit { get; set; }
         public virtual EtkinlikTurleri EtkinlikTurleri { get; set; }
         public virtual FaaliyetTurleri FaaliyetTurleri { get; set; }
+        public virtual SalonTakvimi SalonTakvimi { get; set; }
     }
 }
