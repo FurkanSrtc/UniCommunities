@@ -96,6 +96,11 @@ namespace UniversityCommunities.Controllers
         {
             List<KulupKayit> societyList = new List<KulupKayit>();
             societyList = (db.KulupKayit.Where(x => x.OnayDurumu == false && x.isVisible == true).ToList());
+
+
+            List<KulupKayit> societyList2 = new List<KulupKayit>();
+           ViewBag.OnaylanmisKulupler = (db.KulupKayit.Where(x => x.OnayDurumu == true && x.isVisible == true).ToList());
+
             return View(societyList);
         }
 

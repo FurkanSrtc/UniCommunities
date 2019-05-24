@@ -37,6 +37,6 @@ namespace UniversityCommunities.Models
         public virtual KulupKayit KulupKayit { get; set; }
         public virtual EtkinlikTurleri EtkinlikTurleri { get; set; }
         public virtual FaaliyetTurleri FaaliyetTurleri { get; set; }
-        public virtual SalonTakvimi SalonTakvimi { get; set; }
+        public virtual KonferansSalonlari KonferansSalonlari { get; set; }
     }
 }

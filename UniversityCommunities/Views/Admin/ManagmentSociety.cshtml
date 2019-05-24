@@ -5,11 +5,8 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>ManagmentSociety</h2>
+<h2>Onaylanmamış Kulüpler</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -37,7 +34,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Kulup_KurulusAmaci)
             </td>
-          
+
             <td>
                 @Html.DisplayFor(modelItem => item.Fakulteler.Fakulte_Adi)
             </td>
@@ -51,4 +48,59 @@
         </tr>
     }
 
+</table>
+
+<br />
+<h2>Onaylanmış Kulüpler</h2>
+
+@{
+    List<UniversityCommunities.Models.KulupKayit> kulupKayitOnayli = new List<UniversityCommunities.Models.KulupKayit>();
+
+    kulupKayitOnayli = ViewBag.OnaylanmisKulupler;
+
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Kulup_Adi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kulup_KurulusAmaci)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Fakulteler.Fakulte_Adi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UniversiteKayit.Universite_Adi)
+        </th>
+        <th></th>
+    </tr>
+
+    @{
+        foreach (var item in kulupKayitOnayli)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kulup_Adi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kulup_KurulusAmaci)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fakulteler.Fakulte_Adi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UniversiteKayit.Universite_Adi)
+                </td>
+                <td>
+
+                    @Html.ActionLink("Details", "Details", new { id = item.Kulup_Id }, new { @class = "btn btn-success" })
+                </td>
+            </tr>
+        }
+
+    }
 </table>

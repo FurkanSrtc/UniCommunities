@@ -55,12 +55,24 @@ namespace UniversityCommunities.Controllers
                 List<FaaliyetTurleri> faaliyetTurleri = db.FaaliyetTurleri.ToList();
                 ViewBag.FaaliyetTurList = new SelectList(faaliyetTurleri, "Faaliyet_Turu_Id", "Faaliyet_Turu_Adi");
 
-
+                
                 List<EtkinlikTurleri> etkinlikTurleri = db.EtkinlikTurleri.ToList();
                 ViewBag.EtkinlikTurList = new SelectList(etkinlikTurleri, "Etkinlik_Turu_Id", "Etkinlik_Turu_Adi");
 
 
+                //KONFERANS SALONLARI
 
+
+
+                List<KonferansSalonlari> konferansSalonlari = db.KonferansSalonlari.ToList();
+
+
+
+
+                ServiceReference1.UniServisClient uniServis = new ServiceReference1.UniServisClient();
+
+                //  ViewBag.KonferansList = new SelectList(uniServis.GetAuditoriums(),"id", "SalonAdi");
+                ViewBag.KonferansList = new SelectList(uniServis.GetAuditoriums(), "id", "SalonAdi");
                 return View(kulupEtkinlikleri);
             }
             catch (Exception)
@@ -97,7 +109,8 @@ namespace UniversityCommunities.Controllers
                 kulupEtkinlikleri.isVisible = true;
                 kulupEtkinlikleri.OnayDurumu = false;
                 kulupEtkinlikleri.Kulup_Id = a;
-
+                kulupEtkinlikleri.SalonId = kev.KonferansSalonuId;
+           //     Session["konfolcakmi"] = kev.KonferansSalonu;
                 db.KulupEtkinlikleri.Add(kulupEtkinlikleri);
                 db.SaveChanges();
 

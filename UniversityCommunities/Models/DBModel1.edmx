@@ -155,8 +155,6 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SalonAdi" Type="varchar" MaxLength="100" />
-          <Property Name="SalonFakultesi" Type="int" />
-          <Property Name="Kontenjan" Type="smallint" />
         </EntityType>
         <EntityType Name="Saatler">
           <Key>
@@ -183,6 +181,18 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
             </Principal>
             <Dependent Role="Bolumler">
               <PropertyRef Name="Fakulte_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Etkinlik_KonferansId">
+          <End Role="KonferansSalonlari" Type="Self.KonferansSalonlari" Multiplicity="0..1" />
+          <End Role="KulupEtkinlikleri" Type="Self.KulupEtkinlikleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KonferansSalonlari">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="KulupEtkinlikleri">
+              <PropertyRef Name="SalonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -222,18 +232,6 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_KonferansSalonlariFakId_FakultelerId">
-          <End Role="Fakulteler" Type="Self.Fakulteler" Multiplicity="0..1" />
-          <End Role="KonferansSalonlari" Type="Self.KonferansSalonlari" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Fakulteler">
-              <PropertyRef Name="Fakulte_No" />
-            </Principal>
-            <Dependent Role="KonferansSalonlari">
-              <PropertyRef Name="SalonFakultesi" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_KulupEtkFotoEtkId_KulupEtkEtkId">
           <End Role="KulupEtkinlikleri" Type="Self.KulupEtkinlikleri" Multiplicity="0..1" />
           <End Role="KulupEtkinlikFotograflari" Type="Self.KulupEtkinlikFotograflari" Multiplicity="*" />
@@ -243,18 +241,6 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
             </Principal>
             <Dependent Role="KulupEtkinlikFotograflari">
               <PropertyRef Name="EtkinlikId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_KulupEtkinlikleriSalonId_SalonTakvimiId">
-          <End Role="SalonTakvimi" Type="Self.SalonTakvimi" Multiplicity="0..1" />
-          <End Role="KulupEtkinlikleri" Type="Self.KulupEtkinlikleri" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SalonTakvimi">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="KulupEtkinlikleri">
-              <PropertyRef Name="SalonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -303,18 +289,6 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
             </Principal>
             <Dependent Role="KulupKayit">
               <PropertyRef Name="Universite_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_STakvimSalonId_SalonId">
-          <End Role="KonferansSalonlari" Type="Self.KonferansSalonlari" Multiplicity="1" />
-          <End Role="SalonTakvimi" Type="Self.SalonTakvimi" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="KonferansSalonlari">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="SalonTakvimi">
-              <PropertyRef Name="id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -402,6 +376,10 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
             <End Role="Fakulteler" EntitySet="Fakulteler" />
             <End Role="Bolumler" EntitySet="Bolumler" />
           </AssociationSet>
+          <AssociationSet Name="FK_Etkinlik_KonferansId" Association="Self.FK_Etkinlik_KonferansId">
+            <End Role="KonferansSalonlari" EntitySet="KonferansSalonlari" />
+            <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
+          </AssociationSet>
           <AssociationSet Name="FK_EtknlikKlpId_KlpKlpId" Association="Self.FK_EtknlikKlpId_KlpKlpId">
             <End Role="KulupKayit" EntitySet="KulupKayit" />
             <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
@@ -414,17 +392,9 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
             <End Role="KulupKayit" EntitySet="KulupKayit" />
             <End Role="KulupLogo" EntitySet="KulupLogo" />
           </AssociationSet>
-          <AssociationSet Name="FK_KonferansSalonlariFakId_FakultelerId" Association="Self.FK_KonferansSalonlariFakId_FakultelerId">
-            <End Role="Fakulteler" EntitySet="Fakulteler" />
-            <End Role="KonferansSalonlari" EntitySet="KonferansSalonlari" />
-          </AssociationSet>
           <AssociationSet Name="FK_KulupEtkFotoEtkId_KulupEtkEtkId" Association="Self.FK_KulupEtkFotoEtkId_KulupEtkEtkId">
             <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
             <End Role="KulupEtkinlikFotograflari" EntitySet="KulupEtkinlikFotograflari" />
-          </AssociationSet>
-          <AssociationSet Name="FK_KulupEtkinlikleriSalonId_SalonTakvimiId" Association="Self.FK_KulupEtkinlikleriSalonId_SalonTakvimiId">
-            <End Role="SalonTakvimi" EntitySet="SalonTakvimi" />
-            <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
           </AssociationSet>
           <AssociationSet Name="FK_KulupEtknlkEtkTuruId_EtkTurleriId" Association="Self.FK_KulupEtknlkEtkTuruId_EtkTurleriId">
             <End Role="EtkinlikTurleri" EntitySet="EtkinlikTurleri" />
@@ -441,10 +411,6 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
           <AssociationSet Name="FK_KulupKayitUniId_UniversiteKayitId" Association="Self.FK_KulupKayitUniId_UniversiteKayitId">
             <End Role="UniversiteKayit" EntitySet="UniversiteKayit" />
             <End Role="KulupKayit" EntitySet="KulupKayit" />
-          </AssociationSet>
-          <AssociationSet Name="FK_STakvimSalonId_SalonId" Association="Self.FK_STakvimSalonId_SalonId">
-            <End Role="KonferansSalonlari" EntitySet="KonferansSalonlari" />
-            <End Role="SalonTakvimi" EntitySet="SalonTakvimi" />
           </AssociationSet>
           <AssociationSet Name="FK_UyeBolum_BolumId" Association="Self.FK_UyeBolum_BolumId">
             <End Role="Bolumler" EntitySet="Bolumler" />
@@ -533,22 +499,14 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
             <End Role="UyeUnvanlari" EntitySet="UyeUnvanlari" />
             <End Role="Uyeler" EntitySet="Uyeler" />
           </AssociationSet>
-          <EntitySet Name="KonferansSalonlari" EntityType="UniversiteKulupYonetimDBModel.KonferansSalonlari" />
           <EntitySet Name="Saatler" EntityType="UniversiteKulupYonetimDBModel.Saatler" />
+          <EntitySet Name="KonferansSalonlari" EntityType="UniversiteKulupYonetimDBModel.KonferansSalonlari" />
           <EntitySet Name="SalonTakvimi" EntityType="UniversiteKulupYonetimDBModel.SalonTakvimi" />
-          <AssociationSet Name="FK_KonferansSalonlariFakId_FakultelerId" Association="UniversiteKulupYonetimDBModel.FK_KonferansSalonlariFakId_FakultelerId">
-            <End Role="Fakulteler" EntitySet="Fakulteler" />
+          <AssociationSet Name="FK_Etkinlik_KonferansId" Association="UniversiteKulupYonetimDBModel.FK_Etkinlik_KonferansId">
             <End Role="KonferansSalonlari" EntitySet="KonferansSalonlari" />
-          </AssociationSet>
-          <AssociationSet Name="FK_STakvimSalonId_SalonId" Association="UniversiteKulupYonetimDBModel.FK_STakvimSalonId_SalonId">
-            <End Role="KonferansSalonlari" EntitySet="KonferansSalonlari" />
-            <End Role="SalonTakvimi" EntitySet="SalonTakvimi" />
-          </AssociationSet>
-          <AssociationSet Name="FK_KulupEtkinlikleriSalonId_SalonTakvimiId" Association="UniversiteKulupYonetimDBModel.FK_KulupEtkinlikleriSalonId_SalonTakvimiId">
-            <End Role="SalonTakvimi" EntitySet="SalonTakvimi" />
             <End Role="KulupEtkinlikleri" EntitySet="KulupEtkinlikleri" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Bolumler">
           <Key>
             <PropertyRef Name="Bolum_No" />
@@ -568,7 +526,6 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
           <NavigationProperty Name="Bolumler" Relationship="UniversiteKulupYonetimDBModel.FK_BolumlerFakulteNo_FakultelerFakulteNo" FromRole="Fakulteler" ToRole="Bolumler" />
           <NavigationProperty Name="KulupKayit" Relationship="UniversiteKulupYonetimDBModel.FK_KulupKayitFakulteNo_FakultelerFakulteNo" FromRole="Fakulteler" ToRole="KulupKayit" />
           <NavigationProperty Name="Uyeler" Relationship="UniversiteKulupYonetimDBModel.FK_UyeFakulte_FakulteId" FromRole="Fakulteler" ToRole="Uyeler" />
-          <NavigationProperty Name="KonferansSalonlari" Relationship="UniversiteKulupYonetimDBModel.FK_KonferansSalonlariFakId_FakultelerId" FromRole="Fakulteler" ToRole="KonferansSalonlari" />
         </EntityType>
         <EntityType Name="KulupEtkinlikFotograflari">
           <Key>
@@ -601,7 +558,7 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
           <NavigationProperty Name="EtkinlikTurleri" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtknlkEtkTuruId_EtkTurleriId" FromRole="KulupEtkinlikleri" ToRole="EtkinlikTurleri" />
           <NavigationProperty Name="FaaliyetTurleri" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtknlkEtkTuruId_FaliytTurleriId" FromRole="KulupEtkinlikleri" ToRole="FaaliyetTurleri" />
           <Property Name="SalonId" Type="Int32" />
-          <NavigationProperty Name="SalonTakvimi" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtkinlikleriSalonId_SalonTakvimiId" FromRole="KulupEtkinlikleri" ToRole="SalonTakvimi" />
+          <NavigationProperty Name="KonferansSalonlari" Relationship="UniversiteKulupYonetimDBModel.FK_Etkinlik_KonferansId" FromRole="KulupEtkinlikleri" ToRole="KonferansSalonlari" />
         </EntityType>
         <EntityType Name="KulupGuvenlikBilgileri">
           <Key>
@@ -871,23 +828,20 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="KonferansSalonlari">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SalonAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SalonFakultesi" Type="Int32" />
-          <Property Name="Kontenjan" Type="Int16" />
-          <NavigationProperty Name="Fakulteler" Relationship="UniversiteKulupYonetimDBModel.FK_KonferansSalonlariFakId_FakultelerId" FromRole="KonferansSalonlari" ToRole="Fakulteler" />
-          <NavigationProperty Name="SalonTakvimi" Relationship="UniversiteKulupYonetimDBModel.FK_STakvimSalonId_SalonId" FromRole="KonferansSalonlari" ToRole="SalonTakvimi" />
-        </EntityType>
         <EntityType Name="Saatler">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Saat" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="KonferansSalonlari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalonAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="KulupEtkinlikleri" Relationship="UniversiteKulupYonetimDBModel.FK_Etkinlik_KonferansId" FromRole="KonferansSalonlari" ToRole="KulupEtkinlikleri" />
         </EntityType>
         <EntityType Name="SalonTakvimi">
           <Key>
@@ -897,38 +851,12 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
           <Property Name="SalonId" Type="Int32" />
           <Property Name="BaslangicSaatId" Type="DateTime" Precision="0" />
           <Property Name="BitisSaatId" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="KonferansSalonlari" Relationship="UniversiteKulupYonetimDBModel.FK_STakvimSalonId_SalonId" FromRole="SalonTakvimi" ToRole="KonferansSalonlari" />
-          <NavigationProperty Name="KulupEtkinlikleri" Relationship="UniversiteKulupYonetimDBModel.FK_KulupEtkinlikleriSalonId_SalonTakvimiId" FromRole="SalonTakvimi" ToRole="KulupEtkinlikleri" />
         </EntityType>
-        <Association Name="FK_KonferansSalonlariFakId_FakultelerId">
-          <End Type="UniversiteKulupYonetimDBModel.Fakulteler" Role="Fakulteler" Multiplicity="0..1" />
-          <End Type="UniversiteKulupYonetimDBModel.KonferansSalonlari" Role="KonferansSalonlari" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Fakulteler">
-              <PropertyRef Name="Fakulte_No" />
-            </Principal>
-            <Dependent Role="KonferansSalonlari">
-              <PropertyRef Name="SalonFakultesi" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_STakvimSalonId_SalonId">
-          <End Type="UniversiteKulupYonetimDBModel.KonferansSalonlari" Role="KonferansSalonlari" Multiplicity="1" />
-          <End Type="UniversiteKulupYonetimDBModel.SalonTakvimi" Role="SalonTakvimi" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="KonferansSalonlari">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="SalonTakvimi">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_KulupEtkinlikleriSalonId_SalonTakvimiId">
-          <End Type="UniversiteKulupYonetimDBModel.SalonTakvimi" Role="SalonTakvimi" Multiplicity="0..1" />
+        <Association Name="FK_Etkinlik_KonferansId">
+          <End Type="UniversiteKulupYonetimDBModel.KonferansSalonlari" Role="KonferansSalonlari" Multiplicity="0..1" />
           <End Type="UniversiteKulupYonetimDBModel.KulupEtkinlikleri" Role="KulupEtkinlikleri" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SalonTakvimi">
+            <Principal Role="KonferansSalonlari">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="KulupEtkinlikleri">
@@ -1093,20 +1021,18 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="KonferansSalonlari">
-            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.KonferansSalonlari">
-              <MappingFragment StoreEntitySet="KonferansSalonlari">
-                <ScalarProperty Name="Kontenjan" ColumnName="Kontenjan" />
-                <ScalarProperty Name="SalonFakultesi" ColumnName="SalonFakultesi" />
-                <ScalarProperty Name="SalonAdi" ColumnName="SalonAdi" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Saatler">
             <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.Saatler">
               <MappingFragment StoreEntitySet="Saatler">
                 <ScalarProperty Name="Saat" ColumnName="Saat" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KonferansSalonlari">
+            <EntityTypeMapping TypeName="UniversiteKulupYonetimDBModel.KonferansSalonlari">
+              <MappingFragment StoreEntitySet="KonferansSalonlari">
+                <ScalarProperty Name="SalonAdi" ColumnName="SalonAdi" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1121,7 +1047,7 @@ warning 6002: The table/view 'topluluko_db.dbo.UyeUnvanlari' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

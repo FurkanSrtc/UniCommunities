@@ -38,8 +38,8 @@ namespace UniversityCommunities.Models
         public virtual DbSet<EtkinlikTurleri> EtkinlikTurleri { get; set; }
         public virtual DbSet<FaaliyetTurleri> FaaliyetTurleri { get; set; }
         public virtual DbSet<UyeUnvanlari> UyeUnvanlari { get; set; }
-        public virtual DbSet<KonferansSalonlari> KonferansSalonlari { get; set; }
         public virtual DbSet<Saatler> Saatler { get; set; }
+        public virtual DbSet<KonferansSalonlari> KonferansSalonlari { get; set; }
         public virtual DbSet<SalonTakvimi> SalonTakvimi { get; set; }
     }
 }

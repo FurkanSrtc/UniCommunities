@@ -20,7 +20,7 @@ namespace UniversityCommunities.Controllers
             kulupEtkinlikleri = db.KulupEtkinlikleri.Where(x=> x.OnayDurumu == true && x.isVisible == true && x.Etkinlik_Tarihi>DateTime.Now).OrderBy(x=>x.Etkinlik_Tarihi).ToList();
 
             ViewBag.Duyurular = db.Universite_Duyuru.ToList();
-
+           
             return View(kulupEtkinlikleri);
         }
 
@@ -117,6 +117,8 @@ namespace UniversityCommunities.Controllers
         {
             db.Configuration.ProxyCreationEnabled = false;
             List<Bolumler> departmentList = db.Bolumler.Where(x => x.Fakulte_No == Fakulte_no).ToList();
+
+           
             return Json(departmentList, JsonRequestBehavior.AllowGet);
         }
 
@@ -371,6 +373,8 @@ namespace UniversityCommunities.Controllers
         public void ManagmentUsers()
         {
             List<Fakulteler> FacultyList = db.Fakulteler.ToList();
+
+
             ViewBag.DepartmentList = new SelectList(FacultyList, "Fakulte_No", "Fakulte_Adi");
            // Session["DepartmentList"]= new SelectList(FacultyList, "Fakulte_No", "Fakulte_Adi");
 

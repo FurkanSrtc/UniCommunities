@@ -83,18 +83,20 @@
 
             </ul>
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0 ">
-              
+
 
                 @try
                 {
+
+
+                    <li class="nav-item">
+                        <a class="nav-link ml-2 font-weight-bold" style=" font-weight:100" href="@Url.Action("Register", "Home")">Kulüp Açma Başvurusu</a>
+                    </li>
                     if (String.IsNullOrEmpty((Session["SocietyId"]).ToString()))
                     {
-                          
-                        
-                        
-                        <li class="nav-item">
-                    <a class="nav-link ml-2 font-weight-bold" style=" font-weight:100" href="@Url.Action("Register", "Home")">Kulüp Açma Başvurusu</a>
-                </li>
+
+
+
 
                         <li class="nav-item">
                             <a class="nav-link ml-2 font-weight-bold" style=" font-weight:100" href="@Url.Action("Login", "Home")">Giriş Yap</a>

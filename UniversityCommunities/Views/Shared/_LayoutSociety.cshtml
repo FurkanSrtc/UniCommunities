@@ -11,13 +11,15 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 
     <script>
+    
+
         $(document).ready(function () {
             $("#Fakulte_No").change(function () {
-                $.get("/Home/GetStateList", { Fakulte_No: $("#Fakulte_No").val() },
+                $.get("/Home/GetStateList", { Fakulte_no: $("#Fakulte_No").val() },
                     function (data) {
-                        $("#Bolum_No").empty();
+                        $("#id").empty();
                         $.each(data, function (index, row) {
-                            $("#Bolum_No").append("<option value='" + row.Bolum_No + "'>" + row.Bolum_Adi + "</option> ")
+                            $("#id").append("<option value='" + row.id + "'>" + row.SalonAdi + "</option> ")
                         });
                     });
             });

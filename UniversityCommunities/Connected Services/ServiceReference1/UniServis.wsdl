@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="UniServis" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/UniversityCommunities.Models" />
+      <xs:element name="GetAuditoriums">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetAuditoriumsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/UniversityCommunities.Models" minOccurs="0" name="GetAuditoriumsResult" nillable="true" type="q1:ArrayOfKonferansSalonlari" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetTimes">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetTimesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/UniversityCommunities.Models" minOccurs="0" name="GetTimesResult" nillable="true" type="q2:ArrayOfSaatler" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetFaculties">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetFacultiesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/UniversityCommunities.Models" minOccurs="0" name="GetFacultiesResult" nillable="true" type="q3:ArrayOfFakulteler" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/UniversityCommunities.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/UniversityCommunities.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfKonferansSalonlari">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="KonferansSalonlari" nillable="true" type="tns:KonferansSalonlari" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfKonferansSalonlari" nillable="true" type="tns:ArrayOfKonferansSalonlari" />
+      <xs:complexType name="KonferansSalonlari">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="KulupEtkinlikleri" nillable="true" type="tns:ArrayOfKulupEtkinlikleri" />
+          <xs:element minOccurs="0" name="SalonAdi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="id" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="KonferansSalonlari" nillable="true" type="tns:KonferansSalonlari" />
+      <xs:complexType name="ArrayOfKulupEtkinlikleri">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="KulupEtkinlikleri" nillable="true" type="tns:KulupEtkinlikleri" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfKulupEtkinlikleri" nillable="true" type="tns:ArrayOfKulupEtkinlikleri" />
+      <xs:complexType name="KulupEtkinlikleri">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Adres" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EtkinlikTurleri" nillable="true" type="tns:EtkinlikTurleri" />
+          <xs:element minOccurs="0" name="Etkinlik_Adi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Etkinlik_Id" type="xs:int" />
+          <xs:element minOccurs="0" name="Etkinlik_Konusu" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Etkinlik_Tarihi" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Etkinlik_Turu_Id" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="FaaliyetTurleri" nillable="true" type="tns:FaaliyetTurleri" />
+          <xs:element minOccurs="0" name="Faaliyet_Turu_Id" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="KonferansSalonlari" nillable="true" type="tns:KonferansSalonlari" />
+          <xs:element minOccurs="0" name="KulupEtkinlikFotograflari" nillable="true" type="tns:ArrayOfKulupEtkinlikFotograflari" />
+          <xs:element minOccurs="0" name="KulupKayit" nillable="true" type="tns:KulupKayit" />
+          <xs:element minOccurs="0" name="Kulup_Id" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="OnayDurumu" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="SalonId" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="isVisible" nillable="true" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="KulupEtkinlikleri" nillable="true" type="tns:KulupEtkinlikleri" />
+      <xs:complexType name="EtkinlikTurleri">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Etkinlik_Turu_Adi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Etkinlik_Turu_Id" type="xs:short" />
+          <xs:element minOccurs="0" name="KulupEtkinlikleri" nillable="true" type="tns:ArrayOfKulupEtkinlikleri" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="EtkinlikTurleri" nillable="true" type="tns:EtkinlikTurleri" />
+      <xs:complexType name="FaaliyetTurleri">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Faaliyet_Turu_Adi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Faaliyet_Turu_Id" type="xs:short" />
+          <xs:element minOccurs="0" name="KulupEtkinlikleri" nillable="true" type="tns:ArrayOfKulupEtkinlikleri" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="FaaliyetTurleri" nillable="true" type="tns:FaaliyetTurleri" />
+      <xs:complexType name="ArrayOfKulupEtkinlikFotograflari">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="KulupEtkinlikFotograflari" nillable="true" type="tns:KulupEtkinlikFotograflari" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfKulupEtkinlikFotograflari" nillable="true" type="tns:ArrayOfKulupEtkinlikFotograflari" />
+      <xs:complexType name="KulupEtkinlikFotograflari">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="EtkinlikId" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="FotoAçıklama" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FotoBaşlık" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FotoId" type="xs:int" />
+          <xs:element minOccurs="0" name="FotoURL" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="KulupEtkinlikleri" nillable="true" type="tns:KulupEtkinlikleri" />
+          <xs:element minOccurs="0" name="isVisible" nillable="true" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="KulupEtkinlikFotograflari" nillable="true" type="tns:KulupEtkinlikFotograflari" />
+      <xs:complexType name="KulupKayit">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Fakulte_No" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Fakulteler" nillable="true" type="tns:Fakulteler" />
+          <xs:element minOccurs="0" name="KulupDanisman_Adi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="KulupDanisman_MailAdresi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="KulupDanisman_Soyadi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="KulupDanisman_Telefon" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="KulupDanisman_Unvani" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="KulupEtkinlikleri" nillable="true" type="tns:ArrayOfKulupEtkinlikleri" />
+          <xs:element minOccurs="0" name="KulupGuvenlikBilgileri" nillable="true" type="tns:ArrayOfKulupGuvenlikBilgileri" />
+          <xs:element minOccurs="0" name="KulupLogo" nillable="true" type="tns:ArrayOfKulupLogo" />
+          <xs:element minOccurs="0" name="Kulup_Adi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Kulup_Id" type="xs:int" />
+          <xs:element minOccurs="0" name="Kulup_KurulusAmaci" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OnayDurumu" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="UniversiteKayit" nillable="true" type="tns:UniversiteKayit" />
+          <xs:element minOccurs="0" name="Universite_Id" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Uyeler" nillable="true" type="tns:ArrayOfUyeler" />
+          <xs:element minOccurs="0" name="isVisible" nillable="true" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="KulupKayit" nillable="true" type="tns:KulupKayit" />
+      <xs:complexType name="Fakulteler">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Bolumler" nillable="true" type="tns:ArrayOfBolumler" />
+          <xs:element minOccurs="0" name="Fakulte_Adi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Fakulte_No" type="xs:int" />
+          <xs:element minOccurs="0" name="KulupKayit" nillable="true" type="tns:ArrayOfKulupKayit" />
+          <xs:element minOccurs="0" name="Uyeler" nillable="true" type="tns:ArrayOfUyeler" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Fakulteler" nillable="true" type="tns:Fakulteler" />
+      <xs:complexType name="ArrayOfBolumler">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Bolumler" nillable="true" type="tns:Bolumler" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfBolumler" nillable="true" type="tns:ArrayOfBolumler" />
+      <xs:complexType name="Bolumler">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Bolum_Adi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Bolum_No" type="xs:int" />
+          <xs:element minOccurs="0" name="Fakulte_No" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Fakulteler" nillable="true" type="tns:Fakulteler" />
+          <xs:element minOccurs="0" name="Uyeler" nillable="true" type="tns:ArrayOfUyeler" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Bolumler" nillable="true" type="tns:Bolumler" />
+      <xs:complexType name="ArrayOfUyeler">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Uyeler" nillable="true" type="tns:Uyeler" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfUyeler" nillable="true" type="tns:ArrayOfUyeler" />
+      <xs:complexType name="Uyeler">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Bolumler" nillable="true" type="tns:Bolumler" />
+          <xs:element minOccurs="0" name="Fakulteler" nillable="true" type="tns:Fakulteler" />
+          <xs:element minOccurs="0" name="KulupKayit" nillable="true" type="tns:KulupKayit" />
+          <xs:element minOccurs="0" name="Kulup_Id" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Unvan_Id" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="UyeUnvanlari" nillable="true" type="tns:UyeUnvanlari" />
+          <xs:element minOccurs="0" name="Uye_Adi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Uye_BolumNo" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Uye_DogumTarihi" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Uye_EPosta" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Uye_FakulteNo" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Uye_Id" type="xs:int" />
+          <xs:element minOccurs="0" name="Uye_OkulNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Uye_Soyadi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Uye_Telefon" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="isVisible" nillable="true" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Uyeler" nillable="true" type="tns:Uyeler" />
+      <xs:complexType name="UyeUnvanlari">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Unvan_Adi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Unvan_Id" type="xs:int" />
+          <xs:element minOccurs="0" name="Uyeler" nillable="true" type="tns:ArrayOfUyeler" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="UyeUnvanlari" nillable="true" type="tns:UyeUnvanlari" />
+      <xs:complexType name="ArrayOfKulupKayit">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="KulupKayit" nillable="true" type="tns:KulupKayit" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfKulupKayit" nillable="true" type="tns:ArrayOfKulupKayit" />
+      <xs:complexType name="ArrayOfKulupGuvenlikBilgileri">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="KulupGuvenlikBilgileri" nillable="true" type="tns:KulupGuvenlikBilgileri" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfKulupGuvenlikBilgileri" nillable="true" type="tns:ArrayOfKulupGuvenlikBilgileri" />
+      <xs:complexType name="KulupGuvenlikBilgileri">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="KGuvenlikId" type="xs:int" />
+          <xs:element minOccurs="0" name="KullaniciAdi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="KulupId" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="KulupKayit" nillable="true" type="tns:KulupKayit" />
+          <xs:element minOccurs="0" name="Sifre" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="isVisible" nillable="true" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="KulupGuvenlikBilgileri" nillable="true" type="tns:KulupGuvenlikBilgileri" />
+      <xs:complexType name="ArrayOfKulupLogo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="KulupLogo" nillable="true" type="tns:KulupLogo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfKulupLogo" nillable="true" type="tns:ArrayOfKulupLogo" />
+      <xs:complexType name="KulupLogo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="KulupKayit" nillable="true" type="tns:KulupKayit" />
+          <xs:element minOccurs="0" name="Kulup_No" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Logo_Adresi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="id" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="KulupLogo" nillable="true" type="tns:KulupLogo" />
+      <xs:complexType name="UniversiteKayit">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="KullaniciAdi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="KulupKayit" nillable="true" type="tns:ArrayOfKulupKayit" />
+          <xs:element minOccurs="0" name="Sifre" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Universite_Adi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Universite_Id" type="xs:int" />
+          <xs:element minOccurs="0" name="Universite_Kampus" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Universite_ilNo" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Universite_ilceNo" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="isVisible" nillable="true" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="UniversiteKayit" nillable="true" type="tns:UniversiteKayit" />
+      <xs:complexType name="ArrayOfSaatler">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Saatler" nillable="true" type="tns:Saatler" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfSaatler" nillable="true" type="tns:ArrayOfSaatler" />
+      <xs:complexType name="Saatler">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Saat" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="id" type="xs:unsignedByte" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Saatler" nillable="true" type="tns:Saatler" />
+      <xs:complexType name="ArrayOfFakulteler">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Fakulteler" nillable="true" type="tns:Fakulteler" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfFakulteler" nillable="true" type="tns:ArrayOfFakulteler" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="IUniServis_GetAuditoriums_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuditoriums" />
+  </wsdl:message>
+  <wsdl:message name="IUniServis_GetAuditoriums_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuditoriumsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUniServis_GetTimes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTimes" />
+  </wsdl:message>
+  <wsdl:message name="IUniServis_GetTimes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTimesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUniServis_GetFaculties_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFaculties" />
+  </wsdl:message>
+  <wsdl:message name="IUniServis_GetFaculties_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFacultiesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IUniServis">
+    <wsdl:operation name="GetAuditoriums">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUniServis/GetAuditoriums" message="tns:IUniServis_GetAuditoriums_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUniServis/GetAuditoriumsResponse" message="tns:IUniServis_GetAuditoriums_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTimes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUniServis/GetTimes" message="tns:IUniServis_GetTimes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUniServis/GetTimesResponse" message="tns:IUniServis_GetTimes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFaculties">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUniServis/GetFaculties" message="tns:IUniServis_GetFaculties_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUniServis/GetFacultiesResponse" message="tns:IUniServis_GetFaculties_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IUniServis" type="tns:IUniServis">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAuditoriums">
+      <soap:operation soapAction="http://tempuri.org/IUniServis/GetAuditoriums" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTimes">
+      <soap:operation soapAction="http://tempuri.org/IUniServis/GetTimes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFaculties">
+      <soap:operation soapAction="http://tempuri.org/IUniServis/GetFaculties" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UniServis">
+    <wsdl:port name="BasicHttpBinding_IUniServis" binding="tns:BasicHttpBinding_IUniServis">
+      <soap:address location="http://localhost:64827/UniServis.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
